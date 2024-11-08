@@ -11,6 +11,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         // GET: InvoiceItems Satış Kalemler
         Context c = new Context();
+
         public ActionResult Index()
         {
             var values = c.InvoiceItems.ToList();
