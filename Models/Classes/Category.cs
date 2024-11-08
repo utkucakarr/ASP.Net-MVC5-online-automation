@@ -12,10 +12,12 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Key]
         [Display(Name = "Kategori Id")]
         public int CategoryId { get; set; }
+
         [Display(Name = "Kategori Adı")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
         public string CategoryName { get; set; }
+
         public ICollection<Product> Products { get; set; }
     }
 }

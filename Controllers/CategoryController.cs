@@ -11,6 +11,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         // GET: Category
         Context c = new Context();
+
         public ActionResult Index()
         {
             var values = c.Categories.ToList();
@@ -30,6 +31,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges(); // Değerleri ekledikten sonra veri tabanına kaydet.
             return RedirectToAction("Index"); // bu olaydan sonra beni bir aksiyona yönlendir yani index'e yönlendiriyor.
         }
+
         public ActionResult DeleteCategory(int id)
         {
             var ktg = c.Categories.Find(id);
@@ -37,11 +39,13 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult BringCategory(int id)
         {
             var category = c.Categories.Find(id);
             return View("BringCategory", category);
         }
+
         public ActionResult UpdateCategory(Category k)
         {
             var ktgr = c.Categories.Find(k.CategoryId);

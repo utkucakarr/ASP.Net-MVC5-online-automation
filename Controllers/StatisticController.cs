@@ -11,6 +11,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         // GET: Statistic
         Context c = new Context();
+
         public ActionResult Index()
         {
             var values1 = c.Currents.Count().ToString();

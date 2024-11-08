@@ -12,16 +12,19 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         // GET: Invoice
         Context c = new Context();
+
         public ActionResult Index()
         {
             var list = c.Invoices.ToList();
             return View(list);
         }
+
         [HttpGet]
         public ActionResult AddInvoice()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult AddInvoice(Invoice i)
         {
@@ -29,16 +32,19 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult DetailInvoice(int id)
         {
             var values = c.InvoiceItems.Where(x => x.InvoiceId == id).ToList();
             return View(values);
         }
+
         public ActionResult BringInvoice(int id)
         {
             var values = c.Invoices.Find(id);
             return View("BringInvoice", values);
         }
+
         public ActionResult UpdateInvoice(Invoice ic)
         {
             var invo = c.Invoices.Find(ic.InvoiceId);
@@ -52,11 +58,13 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public ActionResult AddInvoiceItem()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult AddInvoiceItem(InvoiceItem i)
         {

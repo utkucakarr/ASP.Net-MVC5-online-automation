@@ -12,14 +12,17 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Key]
         [Display(Name = "Admin Id")]
         public int AdminId { get; set; }
+
         [Display(Name = "Kullanıcı Adı")]
         [Column(TypeName = "Varchar")]
         [StringLength(10)]
         public string UserName { get; set; }
+
         [Display(Name = "Şifre")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
         public string Password { get; set; }
+
         [Display(Name = "Yetki")]
         [Column(TypeName = "Char")]
         [StringLength(1)]

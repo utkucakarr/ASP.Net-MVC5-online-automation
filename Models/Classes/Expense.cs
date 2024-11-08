@@ -12,12 +12,15 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Key]
         [Display(Name = "Gider Id")]
         public int ExpenseId { get; set; }
+
         [Display(Name = "Açıklama")]
         [Column(TypeName = "Varchar")]
         [StringLength(100)]
         public string Statement { get; set; }
+
         [Display(Name = "Tarih")]
         public DateTime Date { get; set; }
+
         [Display(Name = "Tutar")]
         public decimal TotalPrice { get; set; }
     }

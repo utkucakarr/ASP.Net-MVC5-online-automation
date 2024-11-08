@@ -12,20 +12,26 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Key]
         [Display(Name = "Personel Id")]
         public int EmployeId { get; set; }
+
         [Display(Name = "Personel Adı")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
         public string EmployeName { get; set; }
+
         [Display(Name = "Personel Soyadı")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
         public string EmployeSurname { get; set; }
+
         [Display(Name = "Personel Görseli")]
         [Column(TypeName = "Varchar")]
         [StringLength(250)]
         public string EmployeImage { get; set; }
+
         public ICollection<SalesMotion> SalesMotions { get; set; }
+
         public int DepartmentId { get; set; }
+
         public virtual Department Department { get; set; }
     }
 }

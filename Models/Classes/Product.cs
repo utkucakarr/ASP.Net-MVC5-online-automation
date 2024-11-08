@@ -12,22 +12,29 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Key]
         [Display(Name = "Ürün Id")]
         public int ProductId { get; set; }
+
         [Display(Name = "Ürün Adı")]
         [Column(TypeName = "Varchar")] // Data Annotation
         [StringLength(30)]
         public string ProductName { get; set; }
+
         [Display(Name = "Marka")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
         public string Brand { get; set; }
+
         [Display(Name = "Stok")]
         public short Stock { get; set; }
+
         [Display(Name = "Alış Fiyatı")]
         public decimal PurchasePrice { get; set; }
+
         [Display(Name = "Satış Fiyatı")]
         public decimal SalesPrice { get; set; }
+
         [Display(Name = "Durum")]
         public bool Status { get; set; }
+
         [Display(Name = "Ürün Görseli")]
         [Column(TypeName = "Varchar")]
         [StringLength(250)]

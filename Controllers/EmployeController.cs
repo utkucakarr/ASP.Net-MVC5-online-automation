@@ -11,11 +11,13 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         Context c = new Context();
         // GET: Personel
+
         public ActionResult Index()
         {
             var values = c.Employes.ToList();
             return View(values);
         }
+
         [HttpGet]
         public ActionResult AddEmploye()
         {
@@ -28,6 +30,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.dgr1 = values1; // buradaki dgr1 ViewBag ile kendimiz tanımlıyoruz.
             return View();
         }
+
         [HttpPost]
         public ActionResult AddEmploye(Employe p) // Personel p bana p isminde bir parametre türet demek
         {
@@ -35,6 +38,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult BringEmploye(int id)
         {
             var employe = c.Employes.Find(id);
@@ -47,6 +51,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.vls1 = values1; // buradaki dgr1 ViewBag ile kendimiz tanımlıyoruz.
             return View("BringEmploye", employe);
         }
+
         public ActionResult UpdateEmploye(Employe e)
         {
             var emp = c.Employes.Find(e.EmployeId);

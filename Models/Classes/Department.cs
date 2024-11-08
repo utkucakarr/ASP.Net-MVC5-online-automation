@@ -11,13 +11,17 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
     {
         [Key]
         [Display(Name = "Departman Id")]
+
         public int DepartmentId { get; set; }
         [Display(Name = "Departman")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
+
         public string DepartmentName { get; set; }
+
         [Display(Name = "Durum")]
         public bool Status { get; set; }
+
         public ICollection<Employe> Employes { get; set; }
     }
 }

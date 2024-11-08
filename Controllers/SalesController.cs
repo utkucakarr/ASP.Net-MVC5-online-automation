@@ -11,11 +11,13 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         // GET: Sales
         Context c = new Context();
+
         public ActionResult Index()
         {
             var values = c.SalesMotions.ToList();
             return View(values);
         }
+
         [HttpGet]
         public ActionResult AddSales()
         {
@@ -42,6 +44,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.dgr3 = value3;
             return View();
         }
+
         [HttpPost]
         public ActionResult AddSales(SalesMotion sm)
         {
@@ -50,6 +53,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult BringSales(int id)
         {
             var bs = c.SalesMotions.Find(id);
@@ -76,6 +80,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.dgr3 = values3;
             return View("BringSales", bs);
         }
+
         public ActionResult UpdateSales(SalesMotion sm)
         {
             var nsm = c.SalesMotions.Find(sm.SalesId);
@@ -88,6 +93,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult DetailSales(int id)
         {
             var values = c.SalesMotions.Where(x => x.SalesId == id).ToList();

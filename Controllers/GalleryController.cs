@@ -11,6 +11,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         // GET: Gallery
         Context c = new Context();
+
         public ActionResult Index()
         {
             var values = c.Products.ToList();

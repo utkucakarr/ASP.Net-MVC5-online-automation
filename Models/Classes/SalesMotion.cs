@@ -11,12 +11,16 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Key]
         [Display(Name = "Satış Id")]
         public int SalesId { get; set; }
+
         [Display(Name = "Tarih")]
         public DateTime Date { get; set; }
+
         [Display(Name = "Adet")]
         public int Quantity { get; set; }
+
         [Display(Name = "Fiyat")]
         public decimal Price { get; set; }
+
         [Display(Name = "Toplam Tutar")]
         public decimal TotalPrice { get; set; }
         public int ProductId { get; set; }

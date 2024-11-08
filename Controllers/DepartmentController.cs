@@ -11,16 +11,19 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         Context c = new Context();
         // GET: Department
+
         public ActionResult Index()
         {
             var values = c.Departments.Where(x => x.Status == true).ToList();
             return View(values);
         }
+
         [HttpGet]
         public ActionResult AddDepartment()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult AddDepartment(Department d)
         {
@@ -29,6 +32,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges(); // Değerleri ekledikten sonra veri tabanına kaydet.
             return RedirectToAction("Index"); // bu olaydan sonra beni bir aksiyona yönlendir yani indexe yönlendiriyor.
         }
+
         public ActionResult DeleteDepartment(int id)
         {
             var dpt = c.Departments.Find(id);
@@ -36,12 +40,14 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult BringDepartment(int id)
         {
             var department = c.Departments.Find(id);
             c.SaveChanges();
             return View("BringDepartment", department);
         }
+
         public ActionResult UpdateDepartment(Department de)
         {
             var dprtm = c.Departments.Find(de.DepartmentId);
@@ -50,6 +56,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult DetailDepartment(int id)
         {
             var values = c.Employes.Where(x => x.DepartmentId == id).ToList();
@@ -57,6 +64,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.d = dpt;
             return View(values);
         }
+
         public ActionResult DepartmentEmployeSales(int id)
         {
             var values = c.SalesMotions.Where(x => x.EmployeId == id).ToList();

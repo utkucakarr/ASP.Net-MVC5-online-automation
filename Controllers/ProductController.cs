@@ -11,6 +11,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
     {
         // GET: Product
         Context c = new Context();
+
         public ActionResult Index()
         {
             var values = c.Products.Where(x => x.Status == true).ToList();
