@@ -1,0 +1,21 @@
+﻿@model MvcOnlineTricariOtomasyon.Models.Classes.Department
+@{
+    ViewBag.Title = "BringDepartment";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Departman Güncelleme</h2>
+@using (Html.BeginForm("UpdateDepartment", "Department", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.DepartmentId)
+        <br />
+        @Html.LabelFor(x => x.DepartmentName)
+        @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(x => x.Status)
+        @Html.TextBoxFor(x => x.Status, new { @class = "form-control" })
+    </div>
+    <button class="btn btn-warning" style="color:white">Güncelle</button>
+}

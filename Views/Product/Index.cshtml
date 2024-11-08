@@ -1,0 +1,43 @@
+﻿@using MvcOnlineTricariOtomasyon.Models.Classes
+@model  List<Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<div style="overflow-x:auto;">
+    <table class="table table-bordered" style="margin-top:20px;">
+        <tr>
+            <th>ID</th>
+            <th>ÜRÜN</th>
+            <th>MARKA</th>
+            <th>STOK</th>
+            <th>ALIŞ FİYAT</th>
+            <th>SATIŞ FİYAT</th>
+            <th>KATEGORİ</th>
+            <th>DURUM</th>
+            <th>GÖRSEL</th>
+            <th>GÖRSEL LİNK</th>
+            <th>GÜNCELLE</th>
+            <th>SİL</th>
+        </tr>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.ProductId</td>
+                <td>@p.ProductName</td>
+                <td>@p.Brand</td>
+                <td>@p.Stock</td>
+                <td>@p.PurchasePrice</td>
+                <td>@p.SalesPrice</td>
+                <td>@p.Category.CategoryName</td>
+                <td>@p.Status</td>
+                <td style="text-align:center; align-content:center"><img src="@p.ProductImage" alt="Image" class="img-fluid center" style="height: 36px; width: 36px;"></td>
+                <td>@p.ProductImage.Substring(0, 10)...</td>
+                <td><a href="/Product/BringProduct/@p.ProductId" class="btn btn-success">Güncelle</a></td>
+                <td><a href="/Product/DeleteProduct/@p.ProductId" class="btn btn-danger">Sil</a></td>
+            </tr>
+        }
+    </table>
+</div>
+<br />
+<a href="/Product/AddProduct/" class="btn btn-primary">Ürün Ekle</a>

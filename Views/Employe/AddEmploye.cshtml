@@ -1,0 +1,24 @@
+﻿@model MvcOnlineTricariOtomasyon.Models.Classes.Employe
+@{
+    ViewBag.Title = "AddEmploye";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Yeni Personel Sayfası</h2>
+<br />
+<form class="form-group" method="post">
+    @Html.LabelFor(x => x.EmployeName)
+    @Html.TextBoxFor(x => x.EmployeName, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.EmployeSurname)
+    @Html.TextBoxFor(x => x.EmployeSurname, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.EmployeImage)
+    @Html.TextBoxFor(x => x.EmployeImage, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Department.DepartmentName)
+    @Html.DropDownListFor(x => x.DepartmentId, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Kaydet</button>
+</form>

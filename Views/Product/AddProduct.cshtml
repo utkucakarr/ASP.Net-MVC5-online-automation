@@ -1,0 +1,33 @@
+﻿@model MvcOnlineTricariOtomasyon.Models.Classes.Product
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Yeni Ürün Sayfası</h2>
+<br />
+<form class="form-group" method="post">
+    @Html.LabelFor(x => x.ProductName)
+    @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Brand)
+    @Html.TextBoxFor(x => x.Brand, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Stock)
+    @Html.TextBoxFor(x => x.Stock, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.PurchasePrice)
+    @Html.TextBoxFor(x => x.PurchasePrice, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.SalesPrice)
+    @Html.TextBoxFor(x => x.SalesPrice, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Category)
+    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.vls1, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.ProductImage)
+    @Html.TextBoxFor(x => x.ProductImage, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Kaydet</button>
+</form>

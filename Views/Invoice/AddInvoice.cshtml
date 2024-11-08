@@ -1,0 +1,32 @@
+﻿@model MvcOnlineTricariOtomasyon.Models.Classes.Invoice
+@{
+    ViewBag.Title = "AddInvoice";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+<h2>Yeni Fatura Sayfası</h2>
+<br />
+<form class="form-group" method="post">
+    @Html.LabelFor(x => x.InvoiceSerialNumber)
+    @Html.TextBoxFor(x => x.InvoiceSerialNumber, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.InvoiceOrderNumer)
+    @Html.TextBoxFor(x => x.InvoiceOrderNumer, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.TaxOffice)
+    @Html.TextBoxFor(x => x.TaxOffice, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Date)
+    @Html.TextBoxFor(x => x.Date, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Time)
+    @Html.TextBoxFor(x => x.Time, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Deliverer)
+    @Html.TextBoxFor(x => x.Deliverer, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Recipient)
+    @Html.TextBoxFor(x => x.Recipient, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Kaydet</button>
+</form>

@@ -1,0 +1,32 @@
+﻿@using MvcOnlineTricariOtomasyon.Models.Classes
+@model List<InvoiceItem>
+@{
+    ViewBag.Title = "DetailInvoice";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+<h2>Fatura Detayı</h2>
+<br />
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active"></li>
+</ol>
+<table class="table table-hover">
+    <tr>
+        <th>Fatura Id</th>
+        <th>Açıklama</th>
+        <th>Miktar</th>
+        <th>Birim Fiyat</th>
+        <th>Tutar</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.InvoiveItemId</td>
+            <td>@x.Statement</td>
+            <td>@x.Quantity</td>
+            <td>@x.UnitPrice</td>
+            <td>@x.TotalPrice</td>
+        </tr>
+    }
+</table>
+<a href="/Invoice/AddInvoiceItem" class="btn btn-info">Yeni Kalem Girişi</a>

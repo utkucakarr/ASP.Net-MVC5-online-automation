@@ -1,0 +1,36 @@
+﻿@using MvcOnlineTricariOtomasyon.Models.Classes
+@model List<SalesMotion>
+
+@{
+    ViewBag.Title = "DetailSales";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+<h2>Satış Detayı</h2>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>SATIŞ ID</th>
+        <th>ÜRÜN</th>
+        <th>PERSONEL</th>
+        <th>CARİ</th>
+        <th>FİYAT</th>
+        <th>ADET</th>
+        <th>TOPLAM</th>
+        <th>TARİH</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.SalesId</td>
+            <td>@x.Product.ProductName</td>
+            <td>@x.Employe.EmployeName @x.Employe.EmployeSurname</td>
+            <td>@x.Current.CurrentName @x.Current.CurrentSurname</td>
+            <td>@x.Price</td>
+            <td>@x.Quantity</td>
+            <td>@x.TotalPrice</td>
+            <td>@x.Date</td>
+        </tr>
+    }
+</table>
+<button class="btn btn-primary">Yazdır</button>

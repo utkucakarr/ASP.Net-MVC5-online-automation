@@ -1,0 +1,25 @@
+﻿@using MvcOnlineTricariOtomasyon.Models.Classes
+@model List<Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<table class="table table-bordered" style="margin-top:20px">
+    <tr>
+        <th>ID</th>
+        <th>KATEGORİ</th>
+        <th>GÜNCELLE</th>
+        <th>SİL</th>
+    </tr>
+    @foreach (var k in Model)
+    {
+        <tr>
+            <td>@k.CategoryId</td>
+            <td>@k.CategoryName</td>
+            <td><a href="/Category/BringCategory/@k.CategoryId" class="btn btn-success">Güncelle</a></td>
+            <td><a href="/Category/DeleteCategory/@k.CategoryId" class="btn btn-danger">Sil</a></td>
+        </tr>
+    }
+</table>
+<a href="/Category/AddCategory/" class="btn btn-primary">Kategori Ekle</a>

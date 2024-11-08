@@ -1,0 +1,28 @@
+﻿@model MvcOnlineTricariOtomasyon.Models.Classes.InvoiceItem
+@{
+    ViewBag.Title = "AddInvoiceItem";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+<h2>Yeni Fatura Kalem Sayfası</h2>
+<br />
+<form class="form-group" method="post">
+    @Html.HiddenFor(x => x.InvoiveItemId)
+    @Html.LabelFor(x => x.Statement)
+    @Html.TextBoxFor(x => x.Statement, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Quantity)
+    @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.UnitPrice)
+    @Html.TextBoxFor(x => x.UnitPrice, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.TotalPrice)
+    @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.InvoiceId)
+    @Html.TextBoxFor(x => x.InvoiceId, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-primary">Kaydet</button>
+</form>
+

@@ -1,0 +1,34 @@
+﻿@using MvcOnlineTricariOtomasyon.Models.Classes
+@model List<Current>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<table class="table table-bordered" style="margin-top:20px">
+    <tr>
+        <th>ID</th>
+        <th>ADI</th>
+        <th>SOYADI</th>
+        <th>ŞEHİR</th>
+        <th>MAİL</th>
+        <th>GÜNCELLE</th>
+        <th>SİL</th>
+        <th>DETAY</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.CurrentId</td>
+            <td>@x.CurrentName</td>
+            <td>@x.CurrentSurname</td>
+            <td>@x.CurrentCity</td>
+            <td>@x.CurrentEmail</td>
+            <td><a href="/Current/BringCurrent/@x.CurrentId" class="btn btn-success">Güncelle</a></td>
+            <td><a href="/Current/DeleteCurrent/@x.CurrentId" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Current/CustomerSales/@x.CurrentId" class="btn btn-info" style="background-color:coral">Satış Geçmişi</a></td>
+        </tr>
+    }
+</table>
+<a href="/Current/AddCurrent/" class="btn btn-primary">Cari Ekle</a>
+

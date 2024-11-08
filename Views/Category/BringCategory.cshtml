@@ -1,0 +1,19 @@
+﻿@model MvcOnlineTricariOtomasyon.Models.Classes.Category
+@{
+    ViewBag.Title = "BringCategory";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Kategori Güncelleme</h2>
+<br />
+<!--Bu sayfa yüklendikten sonra ben bir post işlemi gerçekleştirdiğimde hangi action result çalışacak-->
+@using (Html.BeginForm("UpdateCategory", "Category", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.CategoryName)
+        @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
+        @Html.HiddenFor(x => x.CategoryId)
+    </div>
+    <button class="btn btn-warning" style="color:white">Güncelle</button>
+}
