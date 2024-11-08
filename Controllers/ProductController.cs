@@ -16,6 +16,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             var values = c.Products.Where(x => x.Status == true).ToList();
             return View(values);
         }
+
         [HttpGet]
         public ActionResult AddProduct()
         {
@@ -28,6 +29,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.vls1 = values1; // buradaki dgr1 ViewBag ile kendimiz tanımlıyoruz.
             return View();
         }
+
         [HttpPost]
         public ActionResult AddProduct(Product p)
         {
@@ -36,6 +38,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult DeleteProduct(int id)
         {
             var prd = c.Products.Find(id);
@@ -43,6 +46,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult BringProduct(int id)
         {
             var productvalues = c.Products.Find(id);
@@ -55,6 +59,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.vls1 = values1; // buradaki dgr1 ViewBag ile kendimiz tanımlıyoruz.
             return View("BringProduct", productvalues);
         }
+
         public ActionResult UpdateProduct(Product u)
         {
             var prd = c.Products.Find(u.ProductId);
@@ -69,6 +74,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult ProductList()
         {
             var values = c.Products.ToList();
