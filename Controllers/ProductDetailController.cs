@@ -14,8 +14,11 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult Index()
         {
-            var values = c.Products.Where(x => x.ProductId == 1).ToList();
-            return View(values);
+            Class1 cs = new Class1();
+            // var values = c.Products.Where(x => x.ProductId == 1).ToList();
+            cs.Value1 = c.Products.Where(x => x.ProductId == 1).ToList();
+            cs.Value2 = c.PDetail.Where(y => y.PDetailId == 1).ToList();
+            return View(cs);
         }
     }
 }
