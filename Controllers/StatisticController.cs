@@ -49,5 +49,16 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.d16 = values16;
             return View();
         }
+        public ActionResult SimpleTables()
+        {
+            var query = from x in c.Currents
+                        group x by x.CurrentCity into g
+                        select new GroupClass
+                        {
+                            City = g.Key,
+                            NumberOfCities = g.Count(),
+                        };
+            return View(query);
+        }
     }
 }
