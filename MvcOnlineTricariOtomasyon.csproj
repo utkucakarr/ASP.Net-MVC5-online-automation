@@ -152,6 +152,7 @@
     <Compile Include="Models\Classes\Department.cs" />
     <Compile Include="Models\Classes\Employe.cs" />
     <Compile Include="Models\Classes\Expense.cs" />
+    <Compile Include="Models\Classes\GroupClass.cs" />
     <Compile Include="Models\Classes\Invoice.cs" />
     <Compile Include="Models\Classes\InvoiceItem.cs" />
     <Compile Include="Models\Classes\PDetail.cs" />
@@ -2854,6 +2855,7 @@
     <Content Include="Views\Statistic\Index.cshtml" />
     <Content Include="Views\Gallery\Index.cshtml" />
     <Content Include="Views\ProductDetail\Index.cshtml" />
+    <Content Include="Views\Statistic\SimpleTables.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
