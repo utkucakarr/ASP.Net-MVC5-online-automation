@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MvcOnlineTricariOtomasyon.Models.Classes
 {
-    public class Expense
+    public class Expense // Gider
     {
         [Key]
         [Display(Name = "Gider Id")]

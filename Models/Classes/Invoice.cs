@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MvcOnlineTricariOtomasyon.Models.Classes
 {
-    public class Invoice
+    public class Invoice // Fatura
     {
         [Key]
         [Display(Name = "Fatura Id")]

@@ -32,9 +32,9 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddEmploye(Employe p) // Personel p bana p isminde bir parametre türet demek
+        public ActionResult AddEmploye(Employe p)
         {
-            var per = c.Employes.Add(p); // burada veri tabanına p parametresi içindeki değerleri ekletiyoruz.
+            var per = c.Employes.Add(p);
             c.SaveChanges();
             return RedirectToAction("Index");
         }

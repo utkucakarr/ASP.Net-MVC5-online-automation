@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MvcOnlineTricariOtomasyon.Models.Classes
 {
-    public class SalesMotion
+    public class SalesMotion // Satış Hareket
     {
         [Key]
         [Display(Name = "Satış Id")]

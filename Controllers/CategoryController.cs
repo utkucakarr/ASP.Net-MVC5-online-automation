@@ -45,7 +45,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             var category = c.Categories.Find(id);
             return View("BringCategory", category);
         }
-
+        
         public ActionResult UpdateCategory(Category k)
         {
             var ktgr = c.Categories.Find(k.CategoryId);

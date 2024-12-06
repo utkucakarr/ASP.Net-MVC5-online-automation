@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MvcOnlineTricariOtomasyon.Models.Classes
 {
-    public class InvoiceItem
+    public class InvoiceItem //Fatura Kalem
     {
         [Key]
         [Display(Name = "Fatura Kalem Id")]
