@@ -60,5 +60,9 @@ namespace MvcOnlineTricariOtomasyon.Controllers
                         };
             return View(query);
         }
+        public PartialViewResult PartialSimpleTables() // Parçalı view
+        {
+            return PartialView();
+        }
     }
 }
