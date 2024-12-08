@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using MvcOnlineTricariOtomasyon.Models.Classes;
@@ -61,6 +62,32 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             return View(query);
         }
         public PartialViewResult PartialSimpleTables() // Parçalı view
+        {
+            var PstQuery = from x in c.Employes
+                           group x by x.Department.DepartmentId into g
+                           select new GroupClass2
+                           {
+                               Department = g.Key,
+                               Number = g.Count(),
+                           };
+            return PartialView(PstQuery.ToList());
+        }
+        public PartialViewResult PartialCurrent()
+        {
+            var crtQuery = c.Currents.ToList();
+            return PartialView(crtQuery);
+        }
+        public PartialViewResult PartialProduct()
+        {
+            var productQuery = c.Products.ToList();
+            return PartialView(productQuery);
+        }
+        public PartialViewResult PartialCategory()
+        {
+            var categoryQuery = c.Categories.ToList();
+            return PartialView(categoryQuery);
+        }
+        public PartialViewResult PartialProductBrand()
         {
             return PartialView();
         }
