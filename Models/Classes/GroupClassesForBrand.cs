@@ -5,9 +5,9 @@ using System.Web;
 
 namespace MvcOnlineTricariOtomasyon.Models.Classes
 {
-    public class GroupClass2
+    public class GroupClassesForBrand
     {
-        public string Department { get; set; }
         public int Number { get; set; }
+        public string Brand { get; set; }
     }
 }

@@ -154,6 +154,7 @@
     <Compile Include="Models\Classes\Expense.cs" />
     <Compile Include="Models\Classes\GroupClass.cs" />
     <Compile Include="Models\Classes\GroupClass2.cs" />
+    <Compile Include="Models\Classes\GroupClassesForBrand.cs" />
     <Compile Include="Models\Classes\Invoice.cs" />
     <Compile Include="Models\Classes\InvoiceItem.cs" />
     <Compile Include="Models\Classes\PDetail.cs" />
@@ -2861,6 +2862,7 @@
     <Content Include="Views\Statistic\PartialCurrent.cshtml" />
     <Content Include="Views\Statistic\PartialProduct.cshtml" />
     <Content Include="Views\Statistic\PartialCategory.cshtml" />
+    <Content Include="Views\Statistic\PartialForBrand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

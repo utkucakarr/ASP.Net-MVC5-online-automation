@@ -64,7 +64,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         public PartialViewResult PartialSimpleTables() // Parçalı view
         {
             var PstQuery = from x in c.Employes
-                           group x by x.Department.DepartmentId into g
+                           group x by x.Department.DepartmentName into g
                            select new GroupClass2
                            {
                                Department = g.Key,
@@ -90,6 +90,17 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         public PartialViewResult PartialProductBrand()
         {
             return PartialView();
+        }
+        public PartialViewResult PartialForBrand()
+        {
+            var brandQuery = from x in c.Products
+                             group x by x.Brand into g
+                             select new GroupClassesForBrand
+                             {
+                                 Brand = g.Key,
+                                 Number = g.Count()
+                             };
+            return PartialView(brandQuery.ToList());
         }
     }
 }
