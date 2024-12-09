@@ -21,7 +21,7 @@
             <td>@x.EmployeId</td>
             <td>@x.EmployeName</td>
             <td>@x.EmployeSurname</td>
-            <td>@x.EmployeImage</td>
+            <td>@x.EmployeImage.Substring(0, 10)...</td>
             <td>@x.Department.DepartmentName</td>
             <td><a href="/Employe/BringEmploye/@x.EmployeId" class="btn btn-success">Güncelle</a></td>
             <td><a href="/Department/DepartmentEmployeSales/@x.EmployeId" class="btn btn-info">Detaylar</a></td>

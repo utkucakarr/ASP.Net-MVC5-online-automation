@@ -62,5 +62,10 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult EmployeeList()
+        {
+            var employeQuery = c.Employes.ToList();
+            return View(employeQuery);
+        }
     }
 }
