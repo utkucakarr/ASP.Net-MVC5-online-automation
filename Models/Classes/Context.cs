@@ -20,5 +20,6 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         public DbSet<SalesMotion> SalesMotions { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<PDetail> PDetail { get; set; }
+        public DbSet<ToDoList> ToDoLists { get; set; }
     }
 }

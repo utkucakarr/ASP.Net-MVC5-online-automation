@@ -59,6 +59,8 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             emp.EmployeSurname = e.EmployeSurname;
             emp.EmployeImage = e.EmployeImage;
             emp.DepartmentId = e.DepartmentId;
+            emp.PhoneNumber = e.PhoneNumber;
+            emp.Email = e.Email;
             c.SaveChanges();
             return RedirectToAction("Index");
         }

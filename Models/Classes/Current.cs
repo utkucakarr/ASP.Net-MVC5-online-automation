@@ -34,6 +34,11 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [StringLength(50)]
         public string CurrentEmail { get; set; }
 
+        [Display(Name = "Şifre")]
+        [Column(TypeName = "Varchar")]
+        [StringLength(20)]
+        public string Password { get; set; }
+
         [Display(Name = "Durum")]
         public bool Status { get; set; }
 

@@ -28,6 +28,14 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [StringLength(250)]
         public string EmployeImage { get; set; }
 
+        [Display(Name = "Telefon Numarası")]
+        public int PhoneNumber { get; set; }
+
+        [Display(Name = "Mail")]
+        [Column(TypeName = "Varchar")]
+        [StringLength(50)]
+        public string Email { get; set; }
+
         public ICollection<SalesMotion> SalesMotions { get; set; }
 
         public int DepartmentId { get; set; }

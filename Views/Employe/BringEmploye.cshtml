@@ -20,6 +20,12 @@
         <br />
         @Html.LabelFor(x => x.Department.DepartmentName)
         @Html.DropDownListFor(x => x.DepartmentId, (List<SelectListItem>)ViewBag.vls1, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(x => x.PhoneNumber)
+        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control"})
+        <br />
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control"})
     </div>
     <button class="btn btn-warning" style="color:white">Güncelle</button>
 }
