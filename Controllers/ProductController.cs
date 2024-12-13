@@ -1,10 +1,10 @@
 ﻿using MvcOnlineTricariOtomasyon.Models.Classes;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 namespace MvcOnlineTricariOtomasyon.Controllers
 {
     public class ProductController : Controller
@@ -12,10 +12,14 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         // GET: Product
         Context c = new Context();
 
-        public ActionResult Index()
+        public ActionResult Index(string Search)
         {
-            var values = c.Products.Where(x => x.Status == true).ToList();
-            return View(values);
+            var product = from x in c.Products select x;
+            if(!string.IsNullOrEmpty(Search))
+            {
+                product = product.Where(y => y.ProductName.Contains(Search));
+            }
+            return View(product.ToList());
         }
 
         [HttpGet]
@@ -80,6 +84,29 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         {
             var values = c.Products.ToList();
             return View(values);
+        }
+        [HttpGet]
+        public ActionResult MakeSales(int id)
+        {
+            List<SelectListItem> value3 = (from x in c.Employes.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.EmployeName + " " + x.EmployeSurname,
+                                               Value = x.EmployeId.ToString()
+                                           }).ToList();
+            ViewBag.dgr3 = value3;
+            var product = c.Products.Find(id);
+            ViewBag.dgr1 = product.ProductId;
+            ViewBag.price = product.SalesPrice;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult MakeSales(SalesMotion sm)
+        {
+            sm.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
+            c.SalesMotions.Add(sm);
+            c.SaveChanges();
+            return RedirectToAction("Index", "Sales");
         }
     }
 }

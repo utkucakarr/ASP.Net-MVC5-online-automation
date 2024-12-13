@@ -46,7 +46,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             DateTime today = DateTime.Today;
             var values15 = c.SalesMotions.Count(x => x.Date == today).ToString();
             ViewBag.d15 = values15;
-            var values16 = c.SalesMotions.Where(x => x.Date == today).Select(y => y.TotalPrice).DefaultIfEmpty(0).Sum().ToString(); //defaultifempty Boş ise 0 değerini atıyor
+            var values16 = c.SalesMotions.Where(x => x.Date == today).Sum(y => (decimal?)y.TotalPrice).ToString(); //defaultifempty Boş ise 0 değerini atıyor
             ViewBag.d16 = values16;
             return View();
         }

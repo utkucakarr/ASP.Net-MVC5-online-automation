@@ -20,27 +20,29 @@
             <th>DETAYLAR</th>
         </tr>
     </thead>
-    @foreach (var x in Model)
-    {
-        <tr>
-            <td>@x.SalesId</td>
-            <td>@x.Product.ProductName</td>
-            <td>@x.Current.CurrentName @x.Current.CurrentSurname</td>
-            <td>@x.Employe.EmployeName @x.Employe.EmployeSurname</td>
-            <td>@x.Quantity</td>
-            <td>@x.Price</td>
-            <td>@x.TotalPrice</td>
-            <td>@x.Date</td>
-            <td><a href="/Sales/BringSales/@x.SalesId" class="btn btn-success">Güncelle</a></td>
-            <td><a href="/Sales/DetailSales/@x.SalesId" class="btn btn-info">Detaylar</a></td>
-        </tr>
-    }
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@Convert.ToInt32(x.SalesId)</td>
+                <td>@x.Product.ProductName</td>
+                <td>@x.Current.CurrentName @x.Current.CurrentSurname</td>
+                <td>@x.Employe.EmployeName @x.Employe.EmployeSurname</td>
+                <td>@x.Quantity</td>
+                <td>@x.Price</td>
+                <td>@x.TotalPrice</td>
+                <td>@Convert.ToDateTime(x.Date).ToString("dd/MM/yyyy")</td>
+                <td><a href="/Sales/BringSales/@x.SalesId" class="btn btn-success">Güncelle</a></td>
+                <td><a href="/Sales/DetailSales/@x.SalesId" class="btn btn-info">Detaylar</a></td>
+            </tr>
+        }
+    </tbody>
 </table>
 <br />
 <a href="/Sales/AddSales/" class="btn btn-primary">Yeni Satış Yap</a>
 
 @*Bu alan DataTable için gerekli script dosyaları*@
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
@@ -48,8 +50,12 @@
 <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
 <script>
     $('#tbl1').dataTable({
+        "columnDefs": [
+            { "type": "num", "targets": 0 },
+            { "orderable": true, "targets": [1, 2, 3] }
+        ],
         language: {
             url: '//cdn.datatables.net/plug-ins/2.1.8/i18n/tr.json',
-        },
+        }
     });
 </script>

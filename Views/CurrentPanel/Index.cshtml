@@ -1,8 +1,44 @@
-﻿
+﻿@model MvcOnlineTricariOtomasyon.Models.Classes.Current
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_CurrentLayout.cshtml";
 }
+<br />
+<h2>Cari Bilgi Paneli</h2>
 
-<h2>Index</h2>
-
+<br />
+@using (Html.BeginForm("Index", "CurrentPanel", FormMethod.Post))
+{
+    <table class="table table-hover">
+        <tr>
+            <td>
+                <label>Mail Adresi: @HttpContext.Current.User.Identity.Name</label> @*sisteme giren kullanıcının kimlik bilgilerini bize taşı*@
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(x => x.CurrentName)
+                @Html.TextBoxFor(x => x.CurrentName, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(x => x.CurrentSurname)
+                @Html.TextBoxFor(x => x.CurrentSurname, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(x => x.CurrentCity)
+                @Html.TextBoxFor(x => x.CurrentCity, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(x => x.Password)
+                @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-warning">Bilgilerimi Güncelle</button>
+}

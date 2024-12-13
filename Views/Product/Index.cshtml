@@ -1,43 +1,46 @@
 ﻿@using MvcOnlineTricariOtomasyon.Models.Classes
-@model  List<Product>
+@model List<Product>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-<div style="overflow-x:auto;">
-    <table class="table table-bordered" style="margin-top:20px;">
+<br />
+@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+{
+   <p>
+       Ürün Adı: @Html.TextBox("Search")
+       <input type="submit" value="Ara"/>
+   </p>
+}
+<br />
+<table class="table table-bordered" style="margin-top:20px;">
+    <tr>
+        <th>ÜRÜN</th>
+        <th>MARKA</th>
+        <th>STOK</th>
+        <th>ALIŞ FİYAT</th>
+        <th>SATIŞ FİYAT</th>
+        <th>KATEGORİ</th>
+        <th>GÖRSEL</th>
+        <th>GÜNCELLE</th>
+        <th>SİL</th>
+        <th>Satış Yap</th>
+    </tr>
+    @foreach (var p in Model)
+    {
         <tr>
-            <th>ID</th>
-            <th>ÜRÜN</th>
-            <th>MARKA</th>
-            <th>STOK</th>
-            <th>ALIŞ FİYAT</th>
-            <th>SATIŞ FİYAT</th>
-            <th>KATEGORİ</th>
-            <th>DURUM</th>
-            <th>GÖRSEL</th>
-            <th>GÖRSEL LİNK</th>
-            <th>GÜNCELLE</th>
-            <th>SİL</th>
+            <td>@p.ProductName</td>
+            <td>@p.Brand</td>
+            <td>@p.Stock</td>
+            <td>@p.PurchasePrice ₺</td>
+            <td>@p.SalesPrice ₺</td>
+            <td>@p.Category.CategoryName</td>
+            <td style="text-align:center; align-content:center"><img src="@p.ProductImage" alt="Image" class="img-fluid center" style="height: 36px; width: 36px;"></td>
+            <td><a href="/Product/BringProduct/@p.ProductId" class="btn btn-success">Güncelle</a></td>
+            <td><a href="/Product/DeleteProduct/@p.ProductId" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Product/MakeSales/@p.ProductId" class="btn btn-default" style="background-color:#808080; color:white">Satış Yap</a></td>
         </tr>
-        @foreach (var p in Model)
-        {
-            <tr>
-                <td>@p.ProductId</td>
-                <td>@p.ProductName</td>
-                <td>@p.Brand</td>
-                <td>@p.Stock</td>
-                <td>@p.PurchasePrice</td>
-                <td>@p.SalesPrice</td>
-                <td>@p.Category.CategoryName</td>
-                <td>@p.Status</td>
-                <td style="text-align:center; align-content:center"><img src="@p.ProductImage" alt="Image" class="img-fluid center" style="height: 36px; width: 36px;"></td>
-                <td>@p.ProductImage.Substring(0, 10)...</td>
-                <td><a href="/Product/BringProduct/@p.ProductId" class="btn btn-success">Güncelle</a></td>
-                <td><a href="/Product/DeleteProduct/@p.ProductId" class="btn btn-danger">Sil</a></td>
-            </tr>
-        }
-    </table>
-</div>
+    }
+</table>
 <br />
 <a href="/Product/AddProduct/" class="btn btn-primary">Ürün Ekle</a>

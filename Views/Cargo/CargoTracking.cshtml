@@ -1,0 +1,21 @@
+﻿@using MvcOnlineTricariOtomasyon.Models.Classes
+@model List<CargoTracing>
+@{
+    ViewBag.Title = "CargoTracking";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+<table class="table table-striped" style="margin-top:20px">
+    <tr>
+        <th>AÇIKLAMA</th>
+        <th>TARİH</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.Statement</td>
+            <td>@Convert.ToDateTime(@x.DateTime).ToString("dd/MM/yyyy")</td>
+        </tr>
+    }
+</table>
+

@@ -7,7 +7,6 @@
 
 <table class="table table-bordered" style="margin-top:20px">
     <tr>
-        <th>ID</th>
         <th>DEPARTMAN</th>
         <th>GÜNCELLE</th>
         <th>SİL</th>
@@ -16,7 +15,6 @@
     @foreach (var d in Model)
     {
         <tr>
-            <td>@d.DepartmentId</td>
             <td>@d.DepartmentName</td>
             <td><a href="/Department/BringDepartment/@d.DepartmentId" class="btn btn-success">Güncelle</a></td>
             <td><a href="/Department/DeleteDepartment/@d.DepartmentId" class="btn btn-danger">Sil</a></td>
