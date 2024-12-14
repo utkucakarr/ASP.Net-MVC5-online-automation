@@ -150,6 +150,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\InvoiceItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
     <Compile Include="Controllers\QRController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Models\Classes\GroupClassesForBrand.cs" />
     <Compile Include="Models\Classes\Invoice.cs" />
     <Compile Include="Models\Classes\InvoiceItem.cs" />
+    <Compile Include="Models\Classes\Message.cs" />
     <Compile Include="Models\Classes\PDetail.cs" />
     <Compile Include="Models\Classes\Product.cs" />
     <Compile Include="Models\Classes\SalesMotion.cs" />
@@ -2952,10 +2954,18 @@
     <Content Include="Views\Cargo\CargoTracking.cshtml" />
     <Content Include="Views\QR\Index.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
-    <Content Include="Views\Graph\GraphDynamic.cshtml" />
+    <Content Include="Views\Graph\LineGraph.cshtml" />
+    <Content Include="Views\Graph\ColumnGraph.cshtml" />
+    <Content Include="Views\CurrentPanel\IncomingMessages.cshtml" />
+    <Content Include="Views\CurrentPanel\OutGoingMessages.cshtml" />
+    <Content Include="Views\CurrentPanel\MessageDetail.cshtml" />
+    <Content Include="Views\CurrentPanel\NewMessage.cshtml" />
+    <Content Include="Views\CurrentPanel\CargoTracking.cshtml" />
+    <Content Include="Views\CurrentPanel\CurrentCargoTracking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Message\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

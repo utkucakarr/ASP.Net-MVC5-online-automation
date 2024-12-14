@@ -23,5 +23,6 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         public DbSet<ToDoList> ToDoLists { get; set; }
         public DbSet<CargoDetail> CargoDetails { get; set; }
         public DbSet<CargoTracing> CargoTracings { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

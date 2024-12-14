@@ -68,6 +68,5 @@ namespace MvcOnlineTricariOtomasyon.Controllers
                 return RedirectToAction("Index", "Login");
             }
         }
-
     }
 }

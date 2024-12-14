@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "GraphDynamic";
+    ViewBag.Title = "ColumnGraph";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <!DOCTYPE html>
 <html lang="en">
-
+<h2>Ürün - Stok Grafiği Column</h2>
 <head>
     <title>Result Visualization</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -40,19 +40,21 @@
             data.addRows(dataArray);
 
             var columnChartOptions = {
-                title: "Ürün - Stok Grafiği",
+                title: "Ürün - Stok Grafiği Column",
                 width: 1000,
-                height: 400,
+                height: 800,
                 bar: { groupWidth: "20%" }
             };
 
-            var columnChart = new google.visualization.LineChart(document.getElementById('Linechart_div'));
+            var columnChart = new google.visualization.ColumnChart(document.getElementById('Columnchart_div'));
             columnChart.draw(data, columnChartOptions);
         }
     </script>
 </head>
 
 <body>
-    <div id="Linechart_div"></div>
+    <div id="Columnchart_div"></div>
 </body>
 </html>
+
+

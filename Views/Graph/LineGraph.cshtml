@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "LineGraph";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <!DOCTYPE html>
 <html lang="en">
-<h2>Ürün - Stok Grafiği</h2>
+<h2>Ürün - Stok Grafiği Line</h2>
 <head>
     <title>Result Visualization</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -40,19 +40,19 @@
             data.addRows(dataArray);
 
             var columnChartOptions = {
-                title: "Ürün - Stok Grafiği",
+                title: "Ürün - Stok Grafiği Line",
                 width: 1000,
                 height: 800,
                 bar: { groupWidth: "20%" }
             };
 
-            var columnChart = new google.visualization.PieChart(document.getElementById('Piechart_div'));
+            var columnChart = new google.visualization.LineChart(document.getElementById('Linechart_div'));
             columnChart.draw(data, columnChartOptions);
         }
     </script>
 </head>
 
 <body>
-    <div id="Piechart_div"></div>
+    <div id="Linechart_div"></div>
 </body>
 </html>

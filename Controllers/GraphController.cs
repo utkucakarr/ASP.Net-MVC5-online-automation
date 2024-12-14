@@ -17,11 +17,6 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         {
             return View();
         }
-
-        public ActionResult GraphDynamic()
-        {
-            return View();
-        }
         public ActionResult VisualizeProductResult()
         {
             return Json(ProductList(), JsonRequestBehavior.AllowGet);
@@ -29,32 +24,23 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         public List<Graph> ProductList()
         {
             List<Graph> graph = new List<Graph>();
-            graph.Add(new Graph()
+            using (var context = new Context())
             {
-                productName = "Bilgisayar",
-                stock = 120
-            });
-            graph.Add(new Graph()
-            {
-                productName = "Beyaz Eşya",
-                stock = 150
-            });
-            graph.Add(new Graph()
-            {
-                productName = "Mobilya",
-                stock = 70
-            });
-            graph.Add(new Graph()
-            {
-                productName = "Küçük Ev Aletleri",
-                stock = 180
-            });
-            graph.Add(new Graph()
-            {
-                productName = "Mobil Cihazlar",
-                stock = 90
-            });
+                graph = c.Products.Select(x => new Graph
+                {
+                    productName = x.ProductName,
+                    stock = x.Stock
+                }).ToList();
+            }
             return graph;
+        }
+        public ActionResult LineGraph()
+        {
+            return View();
+        }
+        public ActionResult ColumnGraph()
+        {
+            return View();
         }
 
     }
