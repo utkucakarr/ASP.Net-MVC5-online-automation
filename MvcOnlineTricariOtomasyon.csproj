@@ -144,6 +144,7 @@
     <Compile Include="Controllers\CurrentPanelController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EmployeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -524,6 +525,8 @@
     <Content Include="Web\AdminLTE-3.0.4\dist\img\credit\visa.png" />
     <Content Include="Web\AdminLTE-3.0.4\dist\img\default-150x150.png" />
     <Content Include="Web\AdminLTE-3.0.4\dist\img\icons.png" />
+    <Content Include="Web\AdminLTE-3.0.4\dist\img\Current.png" />
+    <Content Include="Web\AdminLTE-3.0.4\dist\img\MessageIcon.png" />
     <Content Include="Web\AdminLTE-3.0.4\dist\img\photo1.png" />
     <Content Include="Web\AdminLTE-3.0.4\dist\img\photo2.png" />
     <Content Include="Web\AdminLTE-3.0.4\dist\img\photo3.jpg" />
@@ -2962,6 +2965,9 @@
     <Content Include="Views\CurrentPanel\NewMessage.cshtml" />
     <Content Include="Views\CurrentPanel\CargoTracking.cshtml" />
     <Content Include="Views\CurrentPanel\CurrentCargoTracking.cshtml" />
+    <Content Include="Views\CurrentPanel\ProfilePartialPassword.cshtml" />
+    <Content Include="Views\CurrentPanel\PartialNotice.cshtml" />
+    <Content Include="Views\Error\PageError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

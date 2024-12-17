@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 using MvcOnlineTricariOtomasyon.Models.Classes;
 
 namespace MvcOnlineTricariOtomasyon.Controllers
@@ -18,8 +19,18 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         public ActionResult Index()
         {
             var Email = (string)Session["CurrentEmail"]; // Cari mailden gelen değerleri session'da tutuyoruz.
-            var emailQuery = c.Currents.FirstOrDefault(x => x.CurrentEmail == Email);
+            var emailQuery = c.Messages.Where(x => x.Receiver == Email).ToList();
             ViewBag.email = Email;
+            var mailId = c.Currents.Where(x => x.CurrentEmail == Email).Select(y => y.CurrentId).FirstOrDefault();
+            ViewBag.mailid = mailId;
+            var totalSales = c.SalesMotions.Where(x => x.CurrentId == mailId).Count();
+            ViewBag.totalSales = totalSales;
+            var totalPrice = c.SalesMotions.Where(x => x.CurrentId == mailId).Select(y => y.TotalPrice).DefaultIfEmpty(0).Sum();
+            ViewBag.totalPrice = totalPrice;
+            var salesProductCount = c.SalesMotions.Where(x => x.CurrentId == mailId).Select(y => y.Quantity).DefaultIfEmpty(0).Sum();
+            ViewBag.salesProductCount = salesProductCount;
+            var nameSurname = c.Currents.Where(x => x.CurrentId == mailId).Select(y => y.CurrentName + " " + y.CurrentSurname).FirstOrDefault();
+            ViewBag.nameSurname = nameSurname;
             return View(emailQuery);
         }
 
@@ -110,5 +121,28 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        public PartialViewResult ProfilePartialPassword()
+        {
+            var Email = (string)Session["CurrentEmail"];
+            var id = c.Currents.Where(x => x.CurrentEmail == Email).Select(y => y.CurrentId).FirstOrDefault();
+            var findCurrent = c.Currents.Find(id);
+            return PartialView("ProfilePartialPassword", findCurrent);
+        }
+
+        public PartialViewResult PartialNotice()
+        {
+            var messagesValues = c.Messages.Where(x => x.Sender == "admin").ToList();
+            return PartialView(messagesValues);
+        }
+
+        public ActionResult CurrentPanelUpdateInfo(Current current)
+        {
+            var currentInfo = c.Currents.Find(current.CurrentId);
+            currentInfo.CurrentName = current.CurrentName;
+            currentInfo.CurrentSurname = current.CurrentSurname;
+            currentInfo.Password = current.Password;
+            c.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
