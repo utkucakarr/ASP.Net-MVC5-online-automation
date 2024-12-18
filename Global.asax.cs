@@ -12,6 +12,8 @@ namespace MvcOnlineTricariOtomasyon
     {
         protected void Application_Start()
         {
+            //authorize işlemi
+            GlobalFilters.Filters.Add(new AuthorizeAttribute());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

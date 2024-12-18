@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace MvcOnlineTricariOtomasyon.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         Context c = new Context();
         // GET: Department
-
         public ActionResult Index()
         {
             var values = c.Departments.Where(x => x.Status == true).ToList();
@@ -19,6 +19,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "A")]
         public ActionResult AddDepartment()
         {
             return View();

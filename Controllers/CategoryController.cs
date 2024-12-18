@@ -16,7 +16,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            var values = c.Categories.ToList().ToPagedList(page,4);
+            var values = c.Categories.ToList().ToPagedList(page, 4);
             return View(values);
         }
 
@@ -47,13 +47,35 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             var category = c.Categories.Find(id);
             return View("BringCategory", category);
         }
-        
+
         public ActionResult UpdateCategory(Category k)
         {
             var ktgr = c.Categories.Find(k.CategoryId);
             ktgr.CategoryName = k.CategoryName;
             c.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult CategoryandProductDropDownList()
+        {
+            Dropdownlist dl = new Dropdownlist();
+            dl.Categories = new SelectList(c.Categories, "CategoryId", "CategoryName");
+            dl.Products = new SelectList(c.Products, "ProductId", "ProductName");
+            return View(dl);
+        }
+
+        public ActionResult BringProductforDropDownList(int p)
+        {
+            var productList = (from x in c.Products
+                               join y in c.Categories
+                               on x.Category.CategoryId equals y.CategoryId
+                               where x.Category.CategoryId == p
+                               select new
+                               {
+                                   Text = x.ProductName,
+                                   Value = x.ProductId.ToString()
+                               }).ToList();
+            return Json(productList, JsonRequestBehavior.AllowGet);
         }
     }
 }

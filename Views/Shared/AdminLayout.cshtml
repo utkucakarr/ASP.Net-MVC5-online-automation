@@ -35,7 +35,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#">Ayarlar</a><a class="dropdown-item" href="#">Hesabım</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html">Çıkış</a>
+                    <a class="dropdown-item" href="/Login/LogOut">Çıkış</a>
                 </div>
             </li>
         </ul>
@@ -54,10 +54,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-flask"></i></div>
                             Ürünler
                         </a>
-                        <a class="nav-link" href="/Department/Index/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-bars"></i></div>
-                            Departmanlar
-                        </a>
+                        @if (User.IsInRole("A") || User.IsInRole("C"))
+                        {
+                            <a class="nav-link" href="/Department/Index/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-bars"></i></div>
+                                Departmanlar
+                            </a>
+                        }
                         <a class="nav-link" href="/Current/Index/">
                             <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                             Cariler
@@ -95,10 +98,6 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
                             Faturalar
                         </a>
-                        <a class="nav-link" href="index.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-pie"></i></div>
-                            Giderler
-                        </a>
                         <a class="nav-link" href="/Cargo/Index/">
                             <div class="sb-nav-link-icon"><i class="fas fa-gift"></i></div>
                             Kargolar
@@ -123,10 +122,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-university"></i></div>
                             Ürün Detay
                         </a>
-                        <a class="nav-link" href="/Statistic/SimpleTables/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
-                            Hızlı Bakış
-                        </a>
+                        @if (User.IsInRole("B") || User.IsInRole("C"))
+                        {
+                            <a class="nav-link" href="/Statistic/SimpleTables/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+                                Hızlı Bakış
+                            </a>
+                        }
                         <a class="nav-link" href="/Employe/EmployeeList/">
                             <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
                             Personel Detay
@@ -138,8 +140,7 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Giriş Yapıldı:</div>
-                    Start Bootstrap
+                    <div class="small">Giriş Yapıldı</div>
                 </div>
             </nav>
         </div>

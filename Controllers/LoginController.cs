@@ -8,6 +8,8 @@ using MvcOnlineTricariOtomasyon.Models.Classes;
 
 namespace MvcOnlineTricariOtomasyon.Controllers
 {
+    // Authorize burası hariç her yerde çalışıyor bu komut onun için.
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         Context c = new Context();
@@ -67,6 +69,13 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+        }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon(); // istekleri terket
+            return RedirectToAction("Index", "Login");
         }
     }
 }
