@@ -10,8 +10,8 @@
 @using (Html.BeginForm("Index", "Cargo", FormMethod.Get))
 {
     <p>
-        Kargo Takip Numarası: @Html.TextBox("Search")
-        <input type="submit" value="Ara" />
+        Kargo Takip Numarası: @Html.TextBox("Search", null, new { placeholder = "Ara..." })
+        <input type="submit" value="Ara" class="btn btn-dark"/>
     </p>
 }
 <table class="table table-bordered">

@@ -3,13 +3,46 @@
     ViewBag.Title = "AddDepartment";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Yeni Departman Sayfası</h2>
 <br />
-<form class="form-group" method="post">
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <strong>Hata!</strong>
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+<form class="form-group" method="post" id="departmentForm">
     @Html.LabelFor(x => x.DepartmentName)
-    @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control", @required = "required", placeholder = "Departman adı" })
+    @Html.ValidationMessageFor(x => x.DepartmentName, "", new { @style = "color:red" })
     <br />
-    <button class="btn btn-info">Kaydet</button>
+    <button id="departmentBtn" class="btn btn-info">Kaydet</button>
 </form>
+
+<script>
+    $(document).ready(function () {
+        $('#departmentBtn').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('departmentForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Departman başarıyla eklendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

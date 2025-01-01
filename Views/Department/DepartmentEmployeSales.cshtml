@@ -19,7 +19,6 @@
         <th>Adet</th>
         <th>Toplam</th>
         <th>Tarih</th>
-        <th>Yazdir</th>
     </tr>
     @foreach (var x in Model)
     {
@@ -30,7 +29,6 @@
             <td>@x.Quantity</td>
             <td>@x.TotalPrice</td>
             <td>@Convert.ToDateTime(x.Date).ToString("dd/MM/yyyy")</td>
-            <td><a href="#" class="btn btn-default" style="background-color:dodgerblue; color:white">Yazdır</a></td>
         </tr>
     }
 </table>

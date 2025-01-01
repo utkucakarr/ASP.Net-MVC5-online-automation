@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,7 +22,8 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         [HttpGet]
         public ActionResult AddEmploye()
         {
-            List<SelectListItem> values1 = (from x in c.Departments.ToList()
+            List<SelectListItem> values1 = (from x in c.Departments
+                                            where x.Status == true
                                             select new SelectListItem
                                             {
                                                 Text = x.DepartmentName, // Kullanıcı tarafından görülecek alan
@@ -34,6 +36,14 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         [HttpPost]
         public ActionResult AddEmploye(Employe p)
         {
+            if (Request.Files.Count > 0)
+            {
+                string fileName = Path.GetFileName(Request.Files[0].FileName);
+                string extension = Path.GetExtension(Request.Files[0].FileName);
+                string path = "~/Images/" + fileName + extension;
+                Request.Files[0].SaveAs(Server.MapPath(path));
+                p.EmployeImage = "/Images/" + fileName + extension;
+            }
             var per = c.Employes.Add(p);
             c.SaveChanges();
             return RedirectToAction("Index");
@@ -42,7 +52,8 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         public ActionResult BringEmploye(int id)
         {
             var employe = c.Employes.Find(id);
-            List<SelectListItem> values1 = (from x in c.Departments.ToList()
+            List<SelectListItem> values1 = (from x in c.Departments
+                                            where x.Status == true
                                             select new SelectListItem
                                             {
                                                 Text = x.DepartmentName, // Kullanıcı tarafından görülecek alan
@@ -54,15 +65,30 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult UpdateEmploye(Employe e)
         {
-            var emp = c.Employes.Find(e.EmployeId);
-            emp.EmployeName = e.EmployeName;
-            emp.EmployeSurname = e.EmployeSurname;
-            emp.EmployeImage = e.EmployeImage;
-            emp.DepartmentId = e.DepartmentId;
-            emp.PhoneNumber = e.PhoneNumber;
-            emp.Email = e.Email;
-            c.SaveChanges();
-            return RedirectToAction("Index");
+            //if (Request.Files.Count > 0)
+            //{
+            //    string fileName = Path.GetFileName(Request.Files[0].FileName);
+            //    string extension = Path.GetExtension(Request.Files[0].FileName);
+            //    string path = "~/Images/" + fileName + extension;
+            //    Request.Files[0].SaveAs(Server.MapPath(path));
+            //    e.EmployeImage = "/Images/" + fileName + extension;
+            //}
+            if (ModelState.IsValid)
+            {
+                var emp = c.Employes.Find(e.EmployeId);
+                emp.EmployeName = e.EmployeName;
+                emp.EmployeSurname = e.EmployeSurname;
+                //emp.EmployeImage = e.EmployeImage;
+                emp.DepartmentId = e.DepartmentId;
+                emp.PhoneNumber = e.PhoneNumber;
+                emp.Email = e.Email;
+                c.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("BringEmploye");
+            }
         }
         public ActionResult EmployeeList()
         {

@@ -16,7 +16,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            var values = c.Categories.ToList().ToPagedList(page, 4);
+            var values = c.Categories.Where(x => x.Status == true).ToList().ToPagedList(page, 4);
             return View(values);
         }
 
@@ -29,15 +29,31 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         [HttpPost]
         public ActionResult AddCategory(Category k)
         {
-            c.Categories.Add(k);
-            c.SaveChanges(); // Değerleri ekledikten sonra veri tabanına kaydet.
-            return RedirectToAction("Index"); // bu olaydan sonra beni bir aksiyona yönlendir yani index'e yönlendiriyor.
+            
+            if (ModelState.IsValid) // formdan gelen veriler doğrulama kurallarına uyuyor mu
+            {
+                var existingCategory = c.Categories.FirstOrDefault(x => x.CategoryName == k.CategoryName);
+                if (existingCategory != null)
+                {
+                    // Aynı isimde kategori varsa hata mesajı ekle
+                    ModelState.AddModelError("", "Bu isimde bir kategori zaten mevcut.");
+                    return View("AddCategory", k); // Formu tekrar göster
+                }
+                k.Status = true;
+                c.Categories.Add(k);
+                c.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("AddCategory");
+            }
         }
 
         public ActionResult DeleteCategory(int id)
         {
             var ktg = c.Categories.Find(id);
-            c.Categories.Remove(ktg);
+            ktg.Status = false;
             c.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -50,10 +66,24 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult UpdateCategory(Category k)
         {
-            var ktgr = c.Categories.Find(k.CategoryId);
-            ktgr.CategoryName = k.CategoryName;
-            c.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var existingCategory = c.Categories.FirstOrDefault(x => x.CategoryName == k.CategoryName);
+                if (existingCategory != null)
+                {
+                    // Aynı isimde kategori varsa hata mesajı ekle
+                    ModelState.AddModelError("", "Bu isimde bir kategori zaten mevcut.");
+                    return View("AddCategory", k); // Formu tekrar göster
+                }
+                var ktgr = c.Categories.Find(k.CategoryId);
+                ktgr.CategoryName = k.CategoryName;
+                c.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("BringCategory");
+            }
         }
 
         public ActionResult CategoryandProductDropDownList()

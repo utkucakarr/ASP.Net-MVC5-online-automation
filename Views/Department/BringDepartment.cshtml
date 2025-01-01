@@ -3,19 +3,48 @@
     ViewBag.Title = "BringDepartment";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Departman Güncelleme</h2>
-@using (Html.BeginForm("UpdateDepartment", "Department", FormMethod.Post))
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <strong>Hata!</strong>
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+@using (Html.BeginForm("UpdateDepartment", "Department", FormMethod.Post, new { id = "departmentForm" }))
 {
     <div class="form-group">
         @Html.HiddenFor(x => x.DepartmentId)
         <br />
         @Html.LabelFor(x => x.DepartmentName)
-        @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(x => x.Status)
-        @Html.TextBoxFor(x => x.Status, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control", @required = "required", placeholder = "Departman adı" })
+        @Html.ValidationMessageFor(x => x.DepartmentName, "", new { @style = "color:red", @class = "text-danger" })
     </div>
-    <button class="btn btn-warning" style="color:white">Güncelle</button>
+    <button id="departmentUpdate" class="btn btn-warning" style="color:white">Güncelle</button>
 }
+<script>
+    $(document).ready(function () {
+        $('#departmentUpdate').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('departmentForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Departman başarıyla güncellendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

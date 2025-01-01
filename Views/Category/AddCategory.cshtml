@@ -3,18 +3,46 @@
     ViewBag.Title = "AddCategory";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Yeni Kategori Sayfası</h2>
 <br />
-<form class="form-group" method="post">
+<!-- ModelState Hata Mesajlarını Göster -->
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <strong>Hata!</strong>
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+<form class="form-group" method="post" id="categoryForm">
     @Html.LabelFor(x => x.CategoryName)
-    @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control", id = "CategoryName", @required = "required", placeholder = "Kategori adı giriniz" })
+    @Html.ValidationMessageFor(x => x.CategoryName, "", new { @style = "color:red", @class = "text-danger" })
     <br />
-    <button class="btn btn-info" id="CategoryBtn">Kaydet</button>
-    <script>
-        $("#CategoryBtn").click(function () {
-            alert("Kategori başarılı bir şekilde eklendi")
-        });
-    </script>
+    <button class="btn btn-info" id="CategoryBtn" type="submit">Kaydet</button>
 </form>
+<script>
+    $(document).ready(function () {
+        $('#CategoryBtn').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('categoryForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Kategori başarıyla eklendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

@@ -26,9 +26,17 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         [HttpPost]
         public PartialViewResult PartialRegister(Current current)
         {
-            c.Currents.Add(current);
-            c.SaveChanges();
-            return PartialView();
+            if (ModelState.IsValid)
+            {
+                current.Status = true;
+                c.Currents.Add(current);
+                c.SaveChanges();
+                return PartialView();
+            }
+            else
+            {
+                return PartialView("Index");
+            }
         }
         [HttpGet]
         public ActionResult CurrentLogin()
@@ -36,18 +44,21 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CurrentLogin(Current current)
+        public JsonResult CurrentLogin(string CurrentEmail, string Password)
         {
-            var query = c.Currents.FirstOrDefault(x => x.CurrentEmail == current.CurrentEmail && x.Password == current.Password);
-            if(query != null)
+            var query = c.Currents.FirstOrDefault(x => x.CurrentEmail == CurrentEmail && x.Password == Password && x.Status == true);
+
+            if (query != null)
             {
-                FormsAuthentication.SetAuthCookie(query.CurrentEmail, false);
-                Session["CurrentEmail"] = query.CurrentEmail.ToString(); // query içindeki maili sessiona atadık.
-                return RedirectToAction("Index", "CurrentPanel");
+                // Başarılı giriş işlemleri
+                FormsAuthentication.SetAuthCookie(query.CurrentEmail, false); // Oturum açmak için kullanılır. SetAuthCookie kimlik doğrulama yapar. Giriş yapan kullanıcının e posta adresini al. False tarayıcı kapandığında oturumu sonlandır.
+                Session["CurrentEmail"] = query.CurrentEmail.ToString(); // kullanıcı oturum bilgisini sesionda tutuyoruz çünkü bu oturum bilgisine diğer sayfalardada ulaşmak için.
+                return Json(new { success = true, redirectUrl = "/CurrentPanel/Index/" });
             }
             else
             {
-                return RedirectToAction("Index", "Login");
+                // Hatalı giriş işlemleri
+                return Json(new { success = false, redirectUrl = "/Login/Index/" });
             }
         }
         [HttpGet]
@@ -56,18 +67,22 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AdminLogin(Admin admin)
+        public JsonResult AdminLogin(string UserName, string Password)
         {
-            var adminUserName = c.Admins.FirstOrDefault(x => x.UserName == admin.UserName && x.Password == admin.Password);
-            if(adminUserName != null)
+            var query = c.Admins.FirstOrDefault(x => x.UserName == UserName && x.Password == Password);
+
+            if (query != null)
             {
-                FormsAuthentication.SetAuthCookie(adminUserName.UserName, false);
-                Session["UserName"] = adminUserName.UserName.ToString();
-                return RedirectToAction("Index", "Category");
+                // Başarılı giriş işlemleri
+                FormsAuthentication.SetAuthCookie(query.UserName, false);
+                Session["UserName"] = query.UserName.ToString();
+                TempData["userName"] = query.UserName;
+                return Json(new { success = true, redirectUrl = "/Category/Index" });
             }
             else
             {
-                return RedirectToAction("Index", "Login");
+                // Hatalı giriş işlemleri
+                return Json(new { success = false, redirectUrl = "/Login/Index" });
             }
         }
 

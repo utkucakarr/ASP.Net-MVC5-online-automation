@@ -175,6 +175,7 @@
     <Compile Include="Models\Classes\Current.cs" />
     <Compile Include="Models\Classes\Department.cs" />
     <Compile Include="Models\Classes\Dropdownlist.cs" />
+    <Compile Include="Models\Classes\DynamicInvoice.cs" />
     <Compile Include="Models\Classes\Employe.cs" />
     <Compile Include="Models\Classes\Expense.cs" />
     <Compile Include="Models\Classes\Graph.cs" />
@@ -2971,6 +2972,8 @@
     <Content Include="Views\CurrentPanel\PartialNotice.cshtml" />
     <Content Include="Views\Error\PageError.cshtml" />
     <Content Include="Views\Category\CategoryandProductDropDownList.cshtml" />
+    <Content Include="Views\ToDoList\AddToDolist.cshtml" />
+    <Content Include="Views\Invoice\Dynamic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

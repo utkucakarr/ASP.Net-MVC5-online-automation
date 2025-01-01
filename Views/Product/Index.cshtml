@@ -4,13 +4,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 @using (Html.BeginForm("Index", "Product", FormMethod.Get))
 {
-   <p>
-       Ürün Adı: @Html.TextBox("Search")
-       <input type="submit" value="Ara"/>
-   </p>
+    <p>
+        Ürün Adı: @Html.TextBox("Search", null, new { placeholder = "Ara..." })
+        <input type="submit" value="Ara" class="btn btn-dark"/>
+    </p>
 }
 <br />
 <table class="table table-bordered" style="margin-top:20px;">
@@ -35,12 +37,46 @@
             <td>@p.PurchasePrice ₺</td>
             <td>@p.SalesPrice ₺</td>
             <td>@p.Category.CategoryName</td>
-            <td style="text-align:center; align-content:center"><img src="@p.ProductImage" alt="Image" class="img-fluid center" style="height: 36px; width: 36px;"></td>
+            <td style="text-align:center"><img src="@p.ProductImage" alt="Image" class="img-fluid center" style="height: 36px; width: 36px;"></td>
             <td><a href="/Product/BringProduct/@p.ProductId" class="btn btn-success">Güncelle</a></td>
-            <td><a href="/Product/DeleteProduct/@p.ProductId" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Product/DeleteProduct/@p.ProductId" class="ProductDelete btn btn-danger">Sil</a></td>
             <td><a href="/Product/MakeSales/@p.ProductId" class="btn btn-default" style="background-color:#808080; color:white">Satış Yap</a></td>
         </tr>
     }
 </table>
 <br />
 <a href="/Product/AddProduct/" class="btn btn-primary">Ürün Ekle</a>
+
+<script>
+    $(document).ready(function () {
+        $('.ProductDelete').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);  
+            swal({
+                title: "Emin misiniz?",
+                text: "Ürün silinecek.",
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "Vazgeç",
+                        value: null,
+                        visible: true,
+                        closeModal: true
+                    },
+                    confirm: {
+                        text: "Evet",
+                        value: true,
+                        visible: true,
+                        className: "btn-danger",
+                        closeModal: true
+                    }
+                },
+                dangerMode: true, 
+            }).then((willSubmit) => {
+                if (willSubmit) {
+                    window.location.href = link.attr('href');
+                }
+            });
+        });
+    });
+</script>

@@ -3,29 +3,31 @@
     ViewBag.Title = "MakeSales";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Satış Yap</h2>
 <br />
-<form class="form-group" method="post">
+<form class="form-group" method="post" id="productForm">
     @Html.LabelFor(x => x.ProductId)
-    <input type="text", name="ProductId" value="@ViewBag.dgr1" class="form-control" readonly/>
+    <input type="text" , name="ProductId" value="@ViewBag.dgr1" class="form-control" readonly />
     <br />
     @Html.LabelFor(x => x.EmployeId)
     @Html.DropDownListFor(x => x.EmployeId, (List<SelectListItem>)ViewBag.dgr3, new { @class = "form-control" })
     <br />
     @Html.LabelFor(x => x.CurrentId)
-    @Html.TextBoxFor(x => x.CurrentId, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.CurrentId, new { @class = "form-control", @required = "required", placeholder = "Cari id"})
     <br />
     @Html.LabelFor(x => x.Quantity)
-    <input type="number" name="Quantity" class="form-control" max="10" min="0" id="Quantity" onchange="sum();" onkeyup="sum();"/>
+    <input type="number" name="Quantity" class="form-control" max="10" min="0" id="Quantity" onchange="sum();" onkeyup="sum();" required placeholder="Adet"/>
     <br />
     @Html.LabelFor(x => x.Price)
-    <input type="text" name="Price" id="SalesPrice" value="@ViewBag.price" class="form-control" onkeyup="sum();" onchange="sum();"/>
+    <input type="text" name="Price" id="SalesPrice" value="@ViewBag.price" class="form-control" onkeyup="sum();" onchange="sum();" required readonly placeholder="Fiyat">
     <br />
     @Html.LabelFor(x => x.TotalPrice)
-    <input type="text" class="form-control" name="TotalPrice" id="TotalPrice" value="0" readonly/>
+    <input type="text" class="form-control" name="TotalPrice" id="TotalPrice" value="0" readonly />
     <br />
-    <button class="btn btn-info">Satış Yap</button>
+    <button id="btnSales" class="btn btn-info">Satış Yap</button>
 </form>
 <br />
 @*onkeyup klavye üzerinden bir işlem yapıldığı zaman için kullanıyor.*@
@@ -34,8 +36,28 @@
         var number1 = document.getElementById('Quantity').value;
         var number2 = document.getElementById('SalesPrice').value;
         var result = parseInt(number1) * parseInt(number2);
-        if (!isNaN(result)) {
+        if (!isNaN(result)) { /*Sonuç bir sayı mı değil mi onu kontrol eder*/
             document.getElementById('TotalPrice').value = result;
         }
     }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#btnSales').click(function (e) {
+            e.preventDefault(); 
+            var form = document.getElementById('productForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            swal("Satış başarıyla yapıldı", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
 </script>

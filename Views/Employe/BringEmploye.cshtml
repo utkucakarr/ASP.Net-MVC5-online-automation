@@ -3,29 +3,47 @@
     ViewBag.Title = "BringEmploye";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Personel Güncelleme</h2>
-@using (Html.BeginForm("UpdateEmploye", "Employe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UpdateEmploye", "Employe", FormMethod.Post, new { enctype = "multipart/form-data", id = "employeUpdate" }))
 {
     <div class="form-group">
         @Html.HiddenFor(x => x.EmployeId)
         @Html.LabelFor(x => x.EmployeName)
-        @Html.TextBoxFor(x => x.EmployeName, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.EmployeName, new { @class = "form-control", @required = "required", id = "EmployeName", placeholder = "Adı" })
         <br />
         @Html.LabelFor(x => x.EmployeSurname)
-        @Html.TextBoxFor(x => x.EmployeSurname, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(x => x.EmployeImage)
-        <input type="file" name="EmployeImage"/>
+        @Html.TextBoxFor(x => x.EmployeSurname, new { @class = "form-control", @required = "required", id = "EmployeSurnmae", placeholder = "Soyadı" })
         <br />
         @Html.LabelFor(x => x.Department.DepartmentName)
         @Html.DropDownListFor(x => x.DepartmentId, (List<SelectListItem>)ViewBag.vls1, new { @class = "form-control" })
         <br />
         @Html.LabelFor(x => x.PhoneNumber)
-        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control"})
+        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @required = "required", id = "PhoneNumber", placeholder = "Telefon no" })
         <br />
         @Html.LabelFor(x => x.Email)
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control"})
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @required = "required", id = "Email", placeholder = "Email" })
     </div>
-    <button class="btn btn-warning" style="color:white">Güncelle</button>
+    <button id="btnUpdate" class="btn btn-warning" style="color:white">Güncelle</button>
 }
+
+<script>
+    $(document).ready(function () {
+        $('#btnUpdate').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('employeUpdate');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Personel başarıyla güncellendi", "", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

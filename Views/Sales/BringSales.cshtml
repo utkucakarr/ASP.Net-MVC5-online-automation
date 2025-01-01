@@ -4,10 +4,12 @@
     ViewBag.Title = "BringSales";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Satış Güncelleme</h2>
 <br />
-@using (Html.BeginForm("UpdateSales", "Sales", FormMethod.Post))
+@using (Html.BeginForm("UpdateSales", "Sales", FormMethod.Post, new { id = "salesForm" }))
 {
     <div class="form-group">
         @Html.HiddenFor(x => x.SalesId)
@@ -21,14 +23,47 @@
         @Html.DropDownListFor(x => x.EmployeId, (List<SelectListItem>)ViewBag.dgr3, new { @class = "form-control" })
         <br />
         @Html.LabelFor(x => x.Quantity)
-        @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control" })
+        <input type="number" name="Quantity" value="@Model.Quantity" class="form-control" max="10" min="0" id="Quantity" onchange="sum();" onkeyup="sum();" required placeholder="Adet" />
+        @*@Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @required = "required", placeholder = "Adedi" })*@
         <br />
         @Html.LabelFor(x => x.Price)
-        @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+        <input type="text" name="Price" id="Price" class="form-control" value="@Model.Price" onkeyup="sum();" onchange="sum();" required placeholder="Fiyat">
+        @*@Html.TextBoxFor(x => x.Price, new { @class = "form-control", @required = "required", placeholder = "Tutarı" })*@
         <br />
         @Html.LabelFor(x => x.TotalPrice)
-        @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control" })
+        <input type="text" class="form-control" name="TotalPrice" id="TotalPrice" value="@Model.TotalPrice" readonly />
+        @*@Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control", @required = "required", placeholder = "Toplam tutarı" })*@
         <br />
-        <button class="btn btn-warning" style="color:white">Güncelle</button>
+        <button id="salesBtn" class="btn btn-warning" style="color:white">Güncelle</button>
     </div>
 }
+
+<script>
+    function sum() {
+        var number1 = document.getElementById('Quantity').value;
+        var number2 = document.getElementById('Price').value;
+        var result = parseInt(number1) * parseInt(number2);
+        if (!isNaN(result)) { /*Sonuç bir sayı mı değil mi onu kontrol eder*/
+            document.getElementById('TotalPrice').value = result;
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#salesBtn').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('salesForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Satış başarıyla güncellendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
 <table class="table table-striped" style="margin-top:20px">
     <tr>
         <th>ID</th>
@@ -25,10 +28,43 @@
             <td>@x.CurrentCity</td>
             <td>@x.CurrentEmail</td>
             <td><a href="/Current/BringCurrent/@x.CurrentId" class="btn btn-success">Güncelle</a></td>
-            <td><a href="/Current/DeleteCurrent/@x.CurrentId" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Current/DeleteCurrent/@x.CurrentId" class="CurrentDelete btn btn-danger">Sil</a></td>
             <td><a href="/Current/CustomerSales/@x.CurrentId" class="btn btn-info" style="background-color:coral">Satış Geçmişi</a></td>
         </tr>
     }
 </table>
 <a href="/Current/AddCurrent/" class="btn btn-primary">Cari Ekle</a>
 
+<script>
+    $(document).ready(function () {
+        $('.CurrentDelete').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            swal({
+                title: "Emin misiniz?",
+                text: "Cari silinecek.",
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "Vazgeç",
+                        value: null,
+                        visible: true,
+                        closeModal: true
+                    },
+                    confirm: {
+                        text: "Evet",
+                        value: true,
+                        visible: true,
+                        className: "btn-danger",
+                        closeModal: true
+                    }
+                },
+                dangerMode: true,
+            }).then((willSubmit) => {
+                if (willSubmit) {
+                    window.location.href = link.attr('href');
+                }
+            });
+        });
+    });
+</script>

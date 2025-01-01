@@ -4,7 +4,6 @@
     <div class="card-header">
         <h3 class="card-title">Departman Personel Sayıları</h3>
     </div>
-    <!-- /.card-header -->
     <div class="card-body p-0">
         <table class="table table-sm">
             <thead>
@@ -35,7 +34,7 @@
                                     <div class="progress-bar bg-warning" style="width: 70%"></div>
                                 </div>
                             }
-                            @if (x.Number == 4)
+                            @if (x.Number > 3)
                             {
                                 <div class="progress progress-xs progress-striped active">
                                     <div class="progress-bar bg-success" style="width: 90%"></div>
@@ -51,7 +50,7 @@
                             {
                                 <span class="badge bg-yellow">@x.Number</span>
                             }
-                            @if (x.Number == 4)
+                            @if (x.Number > 3)
                             {
                                 <span class="badge bg-green">@x.Number</span>
                             }
@@ -61,5 +60,4 @@
             </tbody>
         </table>
     </div>
-    <!-- /.card-body -->
 </div>

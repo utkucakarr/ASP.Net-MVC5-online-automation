@@ -22,8 +22,8 @@
                 success: function (result) {
                     google.charts.load('current', { 'packages': ['corechart']
                     });
-                    google.charts.setOnLoadCallback(function () {
-                        drawChart(result);
+                    google.charts.setOnLoadCallback(function () { // grafik verisi sunucudan alındıktan sonra
+                        drawChart(result); // burayı çağır
                     });
                 }
             });

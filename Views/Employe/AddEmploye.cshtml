@@ -3,32 +3,59 @@
     ViewBag.Title = "AddEmploye";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 
 <br />
 <h2>Yeni Personel Sayfası</h2>
 <br />
-@using (Html.BeginForm("AddEmploye", "Employe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("AddEmploye", "Employe", FormMethod.Post, new { enctype = "multipart/form-data", id = "employeForm" }))
 {
-    <form class="form-group" method="post">
+    <div class="form-group">
         @Html.LabelFor(x => x.EmployeName)
-        @Html.TextBoxFor(x => x.EmployeName, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.EmployeName, new { @class = "form-control", @required = "required", id = "EmployeName", placeholder = "Adı" })
         <br />
+
         @Html.LabelFor(x => x.EmployeSurname)
-        @Html.TextBoxFor(x => x.EmployeSurname, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.EmployeSurname, new { @class = "form-control", @required = "required", id = "EmployeSurname", placeholder = "Soyadı" })
         <br />
+
         @Html.LabelFor(x => x.EmployeImage)
-        <input type="file" name="EmployeImage" />
-        @*@Html.TextBoxFor(x => x.EmployeImage, new { @class = "form-control" })*@
+        <input type="file" name="EmployeImage" id="EmployeImage" required />
         <br />
+
         @Html.LabelFor(x => x.Department.DepartmentName)
-        @Html.DropDownListFor(x => x.DepartmentId, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+        @Html.DropDownListFor(x => x.DepartmentId, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "DepartmentId" })
         <br />
+
         @Html.LabelFor(x => x.PhoneNumber)
-        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @required = "required", id = "PhoneNumber", placeholder = "Telefon no" })
         <br />
+
         @Html.LabelFor(x => x.Email)
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @required = "required", id = "Email", placeholder = "E-mail" })
         <br />
-        <button class="btn btn-info">Kaydet</button>
-    </form>
+
+        <button id="btnAdd" type="button" class="btn btn-info">Kaydet</button>
+    </div>
 }
+
+<script>
+    $(document).ready(function () {
+        $('#btnAdd').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('employeForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Personel başarıyla eklendi", "", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

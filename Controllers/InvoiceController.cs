@@ -72,5 +72,38 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Dynamic()
+        {
+            DynamicInvoice dynamicInvoice = new DynamicInvoice();
+            dynamicInvoice.Invoices = c.Invoices.ToList();
+            dynamicInvoice.Items = c.InvoiceItems.ToList();
+            return View(dynamicInvoice);
+        }
+
+        public ActionResult SaveDynamicInvoice(string InvoiceSerialNumber, string InvoiceOrderNumer, DateTime Date, string TaxOffice, string Time, string Deliverer, string Recipient, string Total, InvoiceItem[] items)
+        {
+            Invoice i = new Invoice();
+            i.InvoiceSerialNumber = InvoiceSerialNumber;
+            i.InvoiceOrderNumer = InvoiceOrderNumer;
+            i.Date = Date;
+            i.TaxOffice = TaxOffice;
+            i.Time = Time;
+            i.Deliverer = Deliverer;
+            i.Recipient = Recipient;
+            i.Total =decimal.Parse(Total);
+            c.Invoices.Add(i);
+            foreach (var x in items) 
+            {
+                InvoiceItem invoiceItem = new InvoiceItem();
+                invoiceItem.Statement = x.Statement;
+                invoiceItem.UnitPrice = x.UnitPrice;
+                invoiceItem.InvoiceId = x.InvoiceId;
+                invoiceItem.Quantity = x.Quantity;
+                invoiceItem.TotalPrice = x.TotalPrice;
+                c.InvoiceItems.Add(invoiceItem);
+            }
+            c.SaveChanges();
+            return Json("İşlem Başarılı", JsonRequestBehavior.AllowGet);
+        }
     }
 }

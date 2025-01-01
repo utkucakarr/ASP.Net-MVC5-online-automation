@@ -3,30 +3,51 @@
     ViewBag.Title = "BringCurrent";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Cari Güncelleme</h2>
 <br />
-@using (Html.BeginForm("UpdateCurrent", "Current", FormMethod.Post))
+@using (Html.BeginForm("UpdateCurrent", "Current", FormMethod.Post, new { id = "currentForm" }))
 {
     <div class="form-group">
         @Html.HiddenFor(x => x.CurrentId)
         @Html.LabelFor(x => x.CurrentName)
-        @Html.TextBoxFor(x => x.CurrentName, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.CurrentName, new { @class = "form-control", @required = "required", placeholder = "Adınız" })
         @Html.ValidationMessageFor(x => x.CurrentName, "", new { @style = "color:red" })
         <br />
         @Html.LabelFor(x => x.CurrentSurname)
-        @Html.TextBoxFor(x => x.CurrentSurname, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.CurrentSurname, new { @class = "form-control", @required = "required", placeholder = "Soyadınız" })
         @Html.ValidationMessageFor(x => x.CurrentSurname, "", new { @style = "color:orange" })
         <br />
         @Html.LabelFor(x => x.CurrentCity)
-        @Html.TextBoxFor(x => x.CurrentCity, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.CurrentCity, new { @class = "form-control", @required = "required", placeholder = "Şehriniz" })
+        @Html.ValidationMessageFor(x => x.CurrentCity, "", new { @style = "color:red", @class = "text-danger" })
         <br />
         @Html.LabelFor(x => x.CurrentEmail)
-        @Html.TextBoxFor(x => x.CurrentEmail, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.CurrentEmail, new { @class = "form-control", @required = "required", placeholder = "Emailiniz" })
+        @Html.ValidationMessageFor(x => x.CurrentEmail, "", new { @style = "color:red", @class = "text-danger" })
         <br />
-        @Html.LabelFor(x => x.Status)
-        @Html.TextBoxFor(x => x.Status, new { @class = "form-control" })
+        @Html.HiddenFor(x => x.Password)
     </div>
-    <button class="btn btn-warning" style="color:white">Güncelle</button>
+    <button id="updateBtn" type="submit" class="btn btn-warning" style="color:white">Güncelle</button>
 }
+
+<script>
+    $(document).ready(function () {
+        $('#updateBtn').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('currentForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Cari başarıyla güncellendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

@@ -28,10 +28,25 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         [HttpPost]
         public ActionResult AddDepartment(Department d)
         {
-            d.Status = true;
-            c.Departments.Add(d);
-            c.SaveChanges(); // Değerleri ekledikten sonra veri tabanına kaydet.
-            return RedirectToAction("Index"); // bu olaydan sonra beni bir aksiyona yönlendir yani indexe yönlendiriyor.
+            if (ModelState.IsValid)
+            {
+                var existingCategory = c.Departments.FirstOrDefault(x => x.DepartmentName == d.DepartmentName);
+                if (existingCategory != null)
+                {
+                    // Aynı isimde kategori varsa hata mesajı ekle
+                    ModelState.AddModelError("", "Bu isimde bir departman zaten mevcut.");
+                    return View("AddDepartment", d); // Formu tekrar göster
+                }
+                d.Status = true;
+                c.Departments.Add(d);
+                c.SaveChanges(); // Değerleri ekledikten sonra veri tabanına kaydet.
+                return RedirectToAction("Index"); // bu olaydan sonra beni bir aksiyona yönlendir yani indexe yönlendiriyor.
+            }
+            else
+            {
+                // Eğer validasyon hatası varsa, aynı sayfayı tekrar döndür
+                return View("AddDepartment");  // Hatalar burada görünecek
+            }
         }
 
         public ActionResult DeleteDepartment(int id)
@@ -51,11 +66,24 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult UpdateDepartment(Department de)
         {
-            var dprtm = c.Departments.Find(de.DepartmentId);
-            dprtm.DepartmentName = de.DepartmentName;
-            dprtm.Status = de.Status;
-            c.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var existingCategory = c.Departments.FirstOrDefault(x => x.DepartmentName == de.DepartmentName);
+                if (existingCategory != null)
+                {
+                    // Aynı isimde kategori varsa hata mesajı ekle
+                    ModelState.AddModelError("", "Bu isimde bir departman zaten mevcut.");
+                    return View("AddDepartment", de); // Formu tekrar göster
+                }
+                var dprtm = c.Departments.Find(de.DepartmentId);
+                dprtm.DepartmentName = de.DepartmentName;
+                c.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("BringDepartment");
+            }
         }
 
         public ActionResult DetailDepartment(int id)

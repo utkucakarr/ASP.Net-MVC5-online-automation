@@ -4,30 +4,64 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
 <br />
 <h2>Yeni Ürün Sayfası</h2>
 <br />
-<form class="form-group" method="post">
-    @Html.LabelFor(x => x.ProductName)
-    @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control" })
-    <br />
-    @Html.LabelFor(x => x.Brand)
-    @Html.TextBoxFor(x => x.Brand, new { @class = "form-control" })
-    <br />
-    @Html.LabelFor(x => x.Stock)
-    @Html.TextBoxFor(x => x.Stock, new { @class = "form-control" })
-    <br />
-    @Html.LabelFor(x => x.PurchasePrice)
-    @Html.TextBoxFor(x => x.PurchasePrice, new { @class = "form-control" })
-    <br />
-    @Html.LabelFor(x => x.SalesPrice)
-    @Html.TextBoxFor(x => x.SalesPrice, new { @class = "form-control" })
-    <br />
-    @Html.LabelFor(x => x.Category)
-    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.vls1, new { @class = "form-control" })
-    <br />
-    @Html.LabelFor(x => x.ProductImage)
-    @Html.TextBoxFor(x => x.ProductImage, new { @class = "form-control" })
-    <br />
-    <button class="btn btn-info">Kaydet</button>
-</form>
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data", id = "productForm"}))
+{
+    <form class="form-group" method="post">
+        @Html.LabelFor(x => x.ProductName)
+        @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", @required = "required", placeholder = "Ürün adı" })
+        @Html.ValidationMessageFor(x => x.ProductName, "", new { @style = "color:red", @class = "text-danger" })
+        <br />
+        @Html.LabelFor(x => x.Brand)
+        @Html.TextBoxFor(x => x.Brand, new { @class = "form-control", @required = "required", placeholder = "Marka" })
+        @Html.ValidationMessageFor(x => x.Brand, "", new { @style = "color:red", @class = "text-danger" })
+        <br />
+        @Html.LabelFor(x => x.Stock)
+        @*@Html.TextBoxFor(x => x.Stock, new { @class = "form-control", @required = "required", placeholder = "Stok" })*@
+         <input type="number" class="form-control" name="Stock" id="TotalPrice" value="0" min="0" required/>
+        @Html.ValidationMessageFor(x => x.Stock, "", new { @style = "color:red", @class = "text-danger" })
+        <br />
+        @Html.LabelFor(x => x.PurchasePrice)
+        @Html.TextBoxFor(x => x.PurchasePrice, new { @class = "form-control", @required = "required", placeholder = "Alış fiyatı" })
+        @Html.ValidationMessageFor(x => x.PurchasePrice, "", new { @style = "color:red", @class = "text-danger" })
+        <br />
+        @Html.LabelFor(x => x.SalesPrice)
+        @Html.TextBoxFor(x => x.SalesPrice, new { @class = "form-control", @required = "required", placeholder = "Satış fiyatı" })
+        @Html.ValidationMessageFor(x => x.SalesPrice, "", new { @style = "color:red", @class = "text-danger" })
+        <br />
+        @Html.LabelFor(x => x.Category)
+        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.vls1, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(x => x.ProductImage)
+        <input type="file" name="ProductImage" required />
+        <br />
+        <button id="productBtn" type="submit" class="btn btn-info">Kaydet</button>
+    </form>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#productBtn').click(function (e) {
+            e.preventDefault();
+
+            var form = document.getElementById('productForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            swal("Ürün başarıyla eklendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>
+

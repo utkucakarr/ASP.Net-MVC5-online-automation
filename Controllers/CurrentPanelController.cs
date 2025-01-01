@@ -31,6 +31,8 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             ViewBag.salesProductCount = salesProductCount;
             var nameSurname = c.Currents.Where(x => x.CurrentId == mailId).Select(y => y.CurrentName + " " + y.CurrentSurname).FirstOrDefault();
             ViewBag.nameSurname = nameSurname;
+            var currentCity = c.Currents.Where(x => x.CurrentId == mailId).Select(y => y.CurrentCity).FirstOrDefault();
+            ViewBag.currentCity = currentCity;
             return View(emailQuery);
         }
 
@@ -48,8 +50,8 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         {
             var Email = (string)Session["CurrentEmail"];
             var messages = c.Messages.Where(x => x.Receiver == Email).OrderByDescending(y => y.MessageId).ToList();
-            var incomingMessages = c.Messages.Count(x => x.Receiver == Email).ToString(); // Gelen mesajların sayısını tutma
-            var outgoingMessages = c.Messages.Count(x => x.Sender == Email).ToString(); // Gelen mesajların sayısını tutma
+            var incomingMessages = c.Messages.Count(x => x.Receiver == Email).ToString();
+            var outgoingMessages = c.Messages.Count(x => x.Sender == Email).ToString();
             ViewBag.incomingMes = incomingMessages;
             ViewBag.outgoingMes = outgoingMessages;
             return View(messages);
@@ -98,7 +100,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             m.Sender = Email;
             c.Messages.Add(m);
             c.SaveChanges();
-            return View();
+            return RedirectToAction("NewMessage");
         }
 
         public ActionResult CargoTracking(string Search)

@@ -15,15 +15,15 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult Index()
         {
-            var values1 = c.Currents.Count().ToString();
+            var values1 = c.Currents.Where(x => x.Status == true).Count().ToString();
             ViewBag.d1 = values1;
-            var values2 = c.Products.Count().ToString();
+            var values2 = c.Products.Where(x => x.Status == true).Count().ToString();
             ViewBag.d2 = values2;
             var values3 = c.Employes.Count().ToString();
             ViewBag.d3 = values3;
-            var values4 = c.Categories.Count().ToString();
+            var values4 = c.Categories.Where(x => x.Status == true).Count().ToString();
             ViewBag.d4 = values4;
-            var values5 = c.Products.Sum(x => x.Stock).ToString();
+            var values5 = c.Products.Where(x => x.Status == true).Sum(x => x.Stock).ToString();
             ViewBag.d5 = values5;
             var values6 = (from x in c.Products select x.Brand).Distinct().Count().ToString(); // distinct benzersiz değerleri getirmek için kullanılır
             ViewBag.d6 = values6;
@@ -74,12 +74,12 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         }
         public PartialViewResult PartialCurrent()
         {
-            var crtQuery = c.Currents.ToList();
+            var crtQuery = c.Currents.Where(x => x.Status == true).ToList();
             return PartialView(crtQuery);
         }
-        public PartialViewResult PartialProduct()
+        public PartialViewResult PartialProduct(string Search)
         {
-            var productQuery = c.Products.ToList();
+            var productQuery = c.Products.Where(x => x.Status == true).ToList();
             return PartialView(productQuery);
         }
         public PartialViewResult PartialCategory()

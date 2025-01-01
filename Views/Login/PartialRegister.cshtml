@@ -1,18 +1,53 @@
-﻿<div class="login-form login-form-left">
-    <div class="agile-row">
-        <h3>Yeni Cari Kaydı</h3>
-        <div class="login-agileits-top">
-            <form method="post">
-                <input type="text" class="name" name="CurrentName" Placeholder="Adınız" required="" />
-                <input type="text" class="name" name="CurrentSurname" Placeholder="Soyadınız" required="" />
-                <input type="text" class="name" name="CurrentCity" Placeholder="Şehir" required="" />
-                <input type="email" class="email" name="CurrentEmail" Placeholder="Mail Adresiniz" required="" />
-                <input type="password" class="password" name="Password" Placeholder="Şifre" required="" />
-                <div class="login-check">
-                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> Kuralları Okudum <a href="#">&amp; Kabul Ediyorum</a></label>
-                </div>
-                <input type="submit" value="Kaydol">
-            </form>
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Cari Kaydı</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <div class="login-form login-form-left">
+        <div class="agile-row">
+            <h3>Yeni Cari Kaydı</h3>
+            <div class="login-agileits-top">
+                <form method="post" id="registerForm">
+                    <input type="text" id="CurrentName" name="CurrentName" placeholder="Adınız" required />
+                    <input type="text" id="CurrentSurname" name="CurrentSurname" placeholder="Soyadınız" required />
+                    <input type="text" id="CurrentCity" name="CurrentCity" placeholder="Şehir" required />
+                    <input type="email" id="CurrentEmail" name="CurrentEmail" placeholder="Mail Adresiniz" required />
+                    <input type="password" id="Password" name="Password" placeholder="Şifre" required />
+                    <div class="login-check">
+                        <label class="checkbox">
+                            <input type="checkbox" name="checkbox" checked />
+                            <i></i> Kuralları Okudum <a href="#"> &amp; Kabul Ediyorum</a>
+                        </label>
+                    </div>
+                    <button style="width: 100%; height: 45px; color: white; background: #db3552; border:none; cursor:pointer; font-size: 1em" id="currentRegister" type="button">Kaydol</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+    <script>
+        $(document).ready(function () {
+            $('#currentRegister').click(function (e) {
+                e.preventDefault();
+                var form = document.getElementById('registerForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                swal("Cari kaydı başarıyla gerçekleşti", " ", "success")
+                    .then((willSubmit) => {
+                        if (willSubmit) {
+                            form.submit();
+                        }
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

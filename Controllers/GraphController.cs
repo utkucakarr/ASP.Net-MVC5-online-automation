@@ -17,9 +17,9 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         {
             return View();
         }
-        public ActionResult VisualizeProductResult()
+        public ActionResult VisualizeProductResult() // ajax isteği sonucu çalışır
         {
-            return Json(ProductList(), JsonRequestBehavior.AllowGet);
+            return Json(ProductList(), JsonRequestBehavior.AllowGet); // product listten gelen veriyi json şeklinde dön. Get isteğiyle verinin alınmasını sağlar.
         }
         public List<Graph> ProductList()
         {

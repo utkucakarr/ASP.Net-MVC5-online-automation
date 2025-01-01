@@ -13,6 +13,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="application/x-javascript">
         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
                function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
     <link href="~/weblogin/css/style.css" type="text/css" rel="stylesheet" media="all">
@@ -55,10 +57,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog2">Kayıt Ol »</a>
                 </div>
                 <div class="register-in middle">
-                    <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog">Cari Girişi »</a>
+                    <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog">CARİ GİRİŞİ »</a>
                 </div>
                 <div class="register-in">
-                    <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog1">Personel Girişi »</a>
+                    <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog1">ADMİN GİRİŞİ »</a>
                 </div>
                 <div class="clear"> </div>
             </div>
@@ -75,15 +77,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <span class="fa fa-lock"></span>
                     <div class="clear"></div>
                     <div class="login-agileits-top">
-                        @using (Html.BeginForm("CurrentLogin", "Login", FormMethod.Post))
+                        @using (Html.BeginForm("CurrentLogin", "Login", FormMethod.Post, new {id = "currentLoginForm" }))
                         {
-                            <input type="text" class="name" name="CurrentEmail" Placeholder="Mail Adresiniz" required="" />
-                            <input type="password" class="password" name="Password" Placeholder="Şifreniz" required="" />
-                            <input type="submit" value="Giriş Yap">
+                            <input type="text" class="name" id="CurrentEmail" name="CurrentEmail" Placeholder="Mail Adresiniz" required="" />
+                            <input type="password" class="password" id="Password" name="Password" Placeholder="Şifreniz" required="" />
+                            <input type="submit" value="Giriş Yap" id="loginBtn" />
                         }
-                    </div>
-                    <div class="login-agileits-bottom">
-                        <h6><a href="#">Şifremi Unuttum?</a></h6>
                     </div>
                 </div>
             </div>
@@ -95,14 +94,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <div class="login-form login-form-left">
                 <div class="agile-row">
-                    <h3>Personel Formu Girişi</h3>
+                    <h3>Admin Formu Girişi</h3>
                     <div class="clear"></div>
                     <div class="login-agileits-top">
-                        @using (Html.BeginForm("AdminLogin", "Login", FormMethod.Post))
+                        @using (Html.BeginForm("AdminLogin", "Login", FormMethod.Post, new {id = "adminForm"}))
                         {
-                            <input type="text" class="name" name="UserName" Placeholder="Kullanıcı Adı" required="" />
-                            <input type="password" class="password" name="Password" Placeholder="Şifre" required="" />
-                            <input type="submit" value="Giriş Yap">
+                            <input type="text" class="name" id="UserName" name="UserName" Placeholder="Kullanıcı Adı" required="" />
+                            <input type="password" class="password" id="Password" name="Password" Placeholder="Şifre" required="" />
+                            <input type="submit" value="Giriş Yap" id="adminLoginBtn" />
                         }
                     </div>
                 </div>
@@ -131,6 +130,81 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 mainClass: 'my-mfp-zoom-in'
             });
 
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#loginBtn').click(function (e) {
+                e.preventDefault();
+                var form = document.getElementById('currentLoginForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                var email = $('#CurrentEmail').val();
+                var password = $('#Password').val();
+
+                $.ajax({
+                    url: '/Login/CurrentLogin',
+                    type: 'POST',
+                    data: {
+                        CurrentEmail: email,
+                        Password: password
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            swal("Başarılı!", "Giriş başarılı.", "success").then(function () {
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            swal("Hata!", "E-mail veya şifre hatalı!", "error").then(function () {
+                                window.location.href = response.redirectUrl;
+                            });
+                        }
+                    },
+                    error: function () {
+                        swal("Hata!", "Bir hata oluştu. Lütfen tekrar deneyin.", "error");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#adminLoginBtn').click(function (e) {
+                e.preventDefault();
+                var form = document.getElementById('adminForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                var userName = $('#UserName').val();
+                var password = $('#Password').val();
+
+                $.ajax({
+                    url: '/Login/AdminLogin',
+                    type: 'POST',
+                    data: {
+                        UserName: userName,
+                        Password: password
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            swal("Başarılı!", "Giriş başarılı.", "success").then(function () {
+                                window.location.href = response.redirectUrl;
+                            });
+                        } else {
+                            // Hatalı giriş
+                            swal("Hata!", "Kullanıcı veya şifre hatalı!", "error").then(function () {
+                                window.location.href = response.redirectUrl;
+                            });
+                        }
+                    },
+                    error: function () {
+                        swal("Hata!", "Bir hata oluştu. Lütfen tekrar deneyin.", "error");
+                    }
+                });
+            });
         });
     </script>
 

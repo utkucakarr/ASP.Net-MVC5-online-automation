@@ -3,10 +3,12 @@
     ViewBag.Title = "AddSales";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Yeni Satış Sayfası</h2>
 <br />
-<form class="form-group" method="post">
+<form class="form-group" method="post" , id="salesForm">
     @Html.LabelFor(x => x.Product.ProductName)
     @Html.DropDownListFor(x => x.ProductId, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
     <br />
@@ -17,13 +19,46 @@
     @Html.DropDownListFor(x => x.EmployeId, (List<SelectListItem>)ViewBag.dgr3, new { @class = "form-control" })
     <br />
     @Html.LabelFor(x => x.Quantity)
-    @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control" })
+    <input type="number" class="form-control" name="Quantity" id="Quantity" value="0" min="0" required />
+    @*@Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @required = "required", placeholder = "Adedi" })*@
     <br />
     @Html.LabelFor(x => x.Price)
-    @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+    <input type="text" name="Price" id="Price" class="form-control" onkeyup="sum();" onchange="sum();" required placeholder="Fiyat">
+    @*@Html.TextBoxFor(x => x.Price, new { @class = "form-control", @required = "required", placeholder = "Tutarı" })*@
     <br />
     @Html.LabelFor(x => x.TotalPrice)
-    @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control" })
+    <input type="text" class="form-control" name="TotalPrice" id="TotalPrice" value="0" readonly />
+    @*@Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control", @required = "required", placeholder = "Toplam tutarı" })*@
     <br />
-    <button class="btn btn-primary">Kaydet</button>
+    <button id="salesBtn" class="btn btn-primary">Kaydet</button>
 </form>
+
+<script>
+    function sum() {
+        var number1 = document.getElementById('Quantity').value;
+        var number2 = document.getElementById('Price').value;
+        var result = parseInt(number1) * parseInt(number2);
+        if (!isNaN(result)) { /*Sonuç bir sayı mı değil mi onu kontrol eder*/
+            document.getElementById('TotalPrice').value = result;
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#salesBtn').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('salesForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Satış başarıyla gerçekleşti", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

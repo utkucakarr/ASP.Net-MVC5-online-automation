@@ -17,7 +17,6 @@
         <th>Adet</th>
         <th>Toplam</th>
         <th>Tarih</th>
-        <th>Yazdır</th>
     </tr>
 
     @foreach (var x in Model)
@@ -28,8 +27,7 @@
             <td>@x.Price</td>
             <td>@x.Quantity</td>
             <td>@x.TotalPrice</td>
-            <td>@x.Date</td>
-            <td><a href="#" class="btn btn-default" style="background-color:dodgerblue">Yazdır</a></td>
+            <td>@x.Date.ToShortDateString()</td>
         </tr>
     }
 </table>

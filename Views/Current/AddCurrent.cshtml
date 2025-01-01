@@ -3,22 +3,49 @@
     ViewBag.Title = "AddCurrent";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Yeni Cari Sayfası</h2>
 <br />
-<form class="form-group" method="post">
+<form class="form-group" method="post" id="currentForm">
     @Html.LabelFor(x => x.CurrentName)
-    @Html.TextBoxFor(x => x.CurrentName, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.CurrentName, new { @class = "form-control", @required = "required", placeholder = "Adı" })
+    @Html.ValidationMessageFor(x => x.CurrentName, "", new { @style = "color:red", @class = "text-danger"})
     <br />
     @Html.LabelFor(x => x.CurrentSurname)
-    @Html.TextBoxFor(x => x.CurrentSurname, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.CurrentSurname, new { @class = "form-control", @required = "required", placeholder = "Soyadı" })
+    @Html.ValidationMessageFor(x => x.CurrentSurname, "", new { @style = "color:red", @class = "text-danger"})
     <br />
     @Html.LabelFor(x => x.CurrentCity)
-    @Html.TextBoxFor(x => x.CurrentCity, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.CurrentCity, new { @class = "form-control", @required = "required", placeholder = "Şehiri" })
+    @Html.ValidationMessageFor(x => x.CurrentCity, "", new { @style = "color:red", @class = "text-danger"})
     <br />
     @Html.LabelFor(x => x.CurrentEmail)
-    @Html.TextBoxFor(x => x.CurrentEmail, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.CurrentEmail, new { @class = "form-control", @required = "required", placeholder = "Mail adresi" })
+    @Html.ValidationMessageFor(x => x.CurrentEmail, "", new { @style = "color:red", @class = "text-danger"})
     <br />
-    <button class="btn btn-info">Kaydet</button>
+    @Html.LabelFor(x => x.Password)
+    @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @required = "required", placeholder = "Şifre" })
+    @Html.ValidationMessageFor(x => x.Password, "", new { @style = "color:red", @class = "text-danger"})
+    <br />
+    <button id="CurrentBtn" class="btn btn-info">Kaydet</button>
 </form>
+<script>
+    $(document).ready(function () {
+        $('#CurrentBtn').click(function (e) {
+            e.preventDefault(); 
+            var form = document.getElementById('currentForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Cari başarıyla eklendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

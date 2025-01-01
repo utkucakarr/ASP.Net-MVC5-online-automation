@@ -4,7 +4,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <table class="table table-bordered" style="margin-top:20px">
     <tr>
         <th>DEPARTMAN</th>
@@ -17,9 +18,42 @@
         <tr>
             <td>@d.DepartmentName</td>
             <td><a href="/Department/BringDepartment/@d.DepartmentId" class="btn btn-success">Güncelle</a></td>
-            <td><a href="/Department/DeleteDepartment/@d.DepartmentId" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Department/DeleteDepartment/@d.DepartmentId" class="DeleteDepartment btn btn-danger">Sil</a></td>
             <td><a href="/Department/DetailDepartment/@d.DepartmentId" class="btn btn-info">Detaylar</a></td>
         </tr>
     }
 </table>
 <a href="/Department/AddDepartment/" class="btn btn-primary">Departman Ekle</a>
+<script>
+    $(document).ready(function () {
+        $('.DeleteDepartment').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            swal({
+                title: "Emin misiniz?",
+                text: "Departman silinecek.",
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "Vazgeç",
+                        value: null,
+                        visible: true,
+                        closeModal: true
+                    },
+                    confirm: {
+                        text: "Evet",
+                        value: true,
+                        visible: true,
+                        className: "btn-danger",
+                        closeModal: true
+                    }
+                },
+                dangerMode: true,
+            }).then((willSubmit) => {
+                if (willSubmit) {
+                    window.location.href = link.attr('href');
+                }
+            });
+        });
+    });
+</script>

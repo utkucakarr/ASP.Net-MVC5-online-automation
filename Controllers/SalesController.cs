@@ -21,14 +21,16 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         [HttpGet]
         public ActionResult AddSales()
         {
-            List<SelectListItem> value1 = (from x in c.Products.ToList()
+            List<SelectListItem> value1 = (from x in c.Products
+                                           where x.Status == true
                                            select new SelectListItem
                                            {
                                                Text = x.ProductName,
                                                Value = x.ProductId.ToString()
                                            }).ToList();
             ViewBag.dgr1 = value1;
-            List<SelectListItem> values2 = (from x in c.Currents.ToList()
+            List<SelectListItem> values2 = (from x in c.Currents
+                                            where x.Status == true
                                             select new SelectListItem
                                             {
                                                 Text = x.CurrentName + " " + x.CurrentSurname,

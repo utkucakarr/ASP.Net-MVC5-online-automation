@@ -9,7 +9,7 @@
 @using (Html.BeginForm("CargoTracking", "CurrentPanel", FormMethod.Get))
 {
     <p>
-        Kargo Takip Numarası: @Html.TextBox("Search")
+        Kargo Takip Numarası: @Html.TextBox("Search", null, new { placeholder = "Ara..."})
         <input type="submit" value="Ara" />
     </p>
 }
@@ -24,8 +24,8 @@
     @foreach (var x in Model)
     {
         <tr>
-            <td>@x.TrackingCode</td>
             <td>@x.Employe</td>
+            <td>@x.Recipient</td>
             <td>@x.TrackingCode</td>
             <td>@Convert.ToDateTime(x.Date).ToString("dd/MM/yyyy")</td>
             <td><a href="/CurrentPanel/CurrentCargoTracking/@x.TrackingCode" class="btn btn-info">Detaylar</a></td>

@@ -13,6 +13,7 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Display(Name = "Cari Id")]
         public int CurrentId { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Cari Adı")]
         [Column(TypeName = "Varchar")]
         [StringLength(30, ErrorMessage = "En fazla 30 karakter yazabilirsiniz")]
@@ -24,16 +25,19 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         public string CurrentSurname { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Şehir")]
         [Column(TypeName = "Varchar")]
         [StringLength(13)]
         public string CurrentCity { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Mail")]
         [Column(TypeName = "Varchar")]
         [StringLength(50)]
         public string CurrentEmail { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Şifre")]
         [Column(TypeName = "Varchar")]
         [StringLength(20)]

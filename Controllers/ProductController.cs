@@ -2,6 +2,7 @@
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,21 +16,22 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         public ActionResult Index(string Search)
         {
             var product = from x in c.Products select x;
-            if(!string.IsNullOrEmpty(Search))
+            if (!string.IsNullOrEmpty(Search))
             {
                 product = product.Where(y => y.ProductName.Contains(Search));
             }
-            return View(product.ToList());
+            return View(product.Where(x => x.Status == true).ToList());
         }
 
         [HttpGet]
         public ActionResult AddProduct()
         {
-            List<SelectListItem> values1 = (from x in c.Categories.ToList()
+            List<SelectListItem> values1 = (from x in c.Categories
+                                            where x.Status == true
                                             select new SelectListItem
                                             {
-                                                Text = x.CategoryName, // Kullanıcı tarafından görülecek alan
-                                                Value = x.CategoryId.ToString() // Geliştirici tarafından görülecek alan
+                                                Text = x.CategoryName,
+                                                Value = x.CategoryId.ToString()
                                             }).ToList();
             ViewBag.vls1 = values1; // buradaki dgr1 ViewBag ile kendimiz tanımlıyoruz.
             return View();
@@ -38,10 +40,25 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         [HttpPost]
         public ActionResult AddProduct(Product p)
         {
-            p.Status = true;
-            c.Products.Add(p);
-            c.SaveChanges();
-            return RedirectToAction("Index");
+            if (Request.Files.Count > 0) // Yüklenen dosya varmı yok mu onu kontrol eder.
+            {
+                string fileName = Path.GetFileName(Request.Files[0].FileName);
+                string extension = Path.GetExtension(Request.Files[0].FileName);
+                string path = "~/Images/" + fileName + extension;
+                Request.Files[0].SaveAs(Server.MapPath(path));
+                p.ProductImage = "/Images/" + fileName + extension;
+            }
+            if (ModelState.IsValid)
+            {
+                p.Status = true;
+                c.Products.Add(p);
+                c.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("AddProduct");
+            }
         }
 
         public ActionResult DeleteProduct(int id)
@@ -55,7 +72,8 @@ namespace MvcOnlineTricariOtomasyon.Controllers
         public ActionResult BringProduct(int id)
         {
             var productvalues = c.Products.Find(id);
-            List<SelectListItem> values1 = (from x in c.Categories.ToList()
+            List<SelectListItem> values1 = (from x in c.Categories
+                                            where x.Status == true
                                             select new SelectListItem
                                             {
                                                 Text = x.CategoryName, // Kullanıcı tarafından görülecek alan
@@ -67,6 +85,14 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult UpdateProduct(Product u)
         {
+            //if (Request.Files.Count > 0)
+            //{
+            //    string fileName = Path.GetFileName(Request.Files[0].FileName);
+            //    string extension = Path.GetExtension(Request.Files[0].FileName);
+            //    string path = "~/Images/" + fileName + extension;
+            //    Request.Files[0].SaveAs(Server.MapPath(path));
+            //    u.ProductImage = "/Images/" + fileName + extension;
+            //}
             var prd = c.Products.Find(u.ProductId);
             prd.ProductName = u.ProductName;
             prd.Brand = u.Brand;
@@ -74,8 +100,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             prd.PurchasePrice = u.PurchasePrice;
             prd.SalesPrice = u.SalesPrice;
             prd.CategoryId = u.CategoryId;
-            prd.Status = u.Status;
-            prd.ProductImage = u.ProductImage;
+            //prd.ProductImage = u.ProductImage;
             c.SaveChanges();
             return RedirectToAction("Index");
         }

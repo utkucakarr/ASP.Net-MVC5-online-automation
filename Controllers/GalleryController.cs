@@ -14,7 +14,7 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult Index()
         {
-            var values = c.Products.ToList();
+            var values = c.Products.Where(x => x.Status == true).ToList();
             return View(values);
         }
     }

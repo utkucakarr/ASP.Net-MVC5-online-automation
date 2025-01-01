@@ -13,22 +13,27 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Display(Name = "Ürün Id")]
         public int ProductId { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Ürün Adı")]
         [Column(TypeName = "Varchar")] // Data Annotation
         [StringLength(30)]
         public string ProductName { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Marka")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
         public string Brand { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Stok")]
         public short Stock { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Alış Fiyatı")]
         public decimal PurchasePrice { get; set; }
 
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Satış Fiyatı")]
         public decimal SalesPrice { get; set; }
 

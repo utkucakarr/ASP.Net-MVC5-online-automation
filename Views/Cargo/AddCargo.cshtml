@@ -3,26 +3,45 @@
     ViewBag.Title = "AddCargo";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <br />
 <h2>Yeni Kargo Sayfası</h2>
 <br />
 
-<form class="form-group" method="post">
+<form class="form-group" method="post", id="cargoForm">
     @Html.LabelFor(x => x.TrackingCode)
-    <input type="text" value="@ViewBag.trackingCode" name="TrackingCode" class="form-control" readonly/>
+    <input type="text" value="@ViewBag.trackingCode" name="TrackingCode" class="form-control" readonly />
     <br />
     @Html.LabelFor(x => x.Employe)
-    @Html.TextBoxFor(x => x.Employe, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.Employe, new { @class = "form-control", @required = "required", placeholder = "Personel" })
     <br />
     @Html.LabelFor(x => x.Recipient)
-    @Html.TextBoxFor(x => x.Recipient, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.Recipient, new { @class = "form-control", @required = "required", placeholder = "Alıcı" })
     <br />
     @Html.LabelFor(x => x.Date)
-    <input class="form-control" type="date" name="Date"/>
+    <input class="form-control" type="date" name="Date" required />
     <br />
     @Html.LabelFor(x => x.Statement)
-    @Html.TextAreaFor(x => x.Statement, new { @class = "form-control" })
+    @Html.TextAreaFor(x => x.Statement, new { @class = "form-control", @required = "required", placeholder = "Açıklama" })
     <br />
-    <button class="btn btn-warning">Kaydet</button>
+    <button id="cargoBtn" class="btn btn-warning">Kaydet</button>
 </form>
-
+<script>
+    $(document).ready(function () {
+        $('#cargoBtn').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('cargoForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            swal("Cargo başarıyla eklendi", " ", "success")
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>

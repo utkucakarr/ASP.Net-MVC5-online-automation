@@ -24,12 +24,17 @@ namespace MvcOnlineTricariOtomasyon.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult AddCurrent(Current p)
         {
-            p.Status = true;
-            var cur = c.Currents.Add(p);
-            c.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                p.Status = true;
+                var cur = c.Currents.Add(p);
+                c.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("AddCurrent");
         }
 
         public ActionResult DeleteCurrent(int id)
@@ -49,18 +54,20 @@ namespace MvcOnlineTricariOtomasyon.Controllers
 
         public ActionResult UpdateCurrent(Current ca)
         {
-            if (!ModelState.IsValid) // model state geçerlemesi doğru değil ise
+            if (ModelState.IsValid)
+            {
+                var cr = c.Currents.Find(ca.CurrentId);
+                cr.CurrentName = ca.CurrentName;
+                cr.CurrentSurname = ca.CurrentSurname;
+                cr.CurrentCity = ca.CurrentCity;
+                cr.CurrentEmail = ca.CurrentEmail;
+                c.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
             {
                 return View("BringCurrent");
             }
-            var cr = c.Currents.Find(ca.CurrentId);
-            cr.CurrentName = ca.CurrentName;
-            cr.CurrentSurname = ca.CurrentSurname;
-            cr.CurrentCity = ca.CurrentCity;
-            cr.CurrentEmail = ca.CurrentEmail;
-            cr.Status = ca.Status;
-            c.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         public ActionResult CustomerSales(int id)

@@ -7,6 +7,9 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
 <table class="table table-bordered" style="margin-top:20px">
     <tr>
         <th>KATEGORİ</th>
@@ -18,14 +21,48 @@
         <tr>
             <td>@k.CategoryName</td>
             <td><a href="/Category/BringCategory/@k.CategoryId" class="btn btn-success">Güncelle</a></td>
-            <td><a href="/Category/DeleteCategory/@k.CategoryId" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Category/DeleteCategory/@k.CategoryId" class="CategoryDelete btn btn-danger">Sil</a></td>
         </tr>
     }
 </table>
-@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index", new { page }),
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }),
 new PagedListRenderOptions
 {
     LiElementClasses = new List<string>
     {"page-link"}
 })
 <a href="/Category/AddCategory/" class="btn btn-primary">Kategori Ekle</a>
+
+<script>
+    $(document).ready(function () {
+        $('.CategoryDelete').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            swal({
+                title: "Emin misiniz?",
+                text: "Kategori silinecek.",
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "Vazgeç",
+                        value: null,
+                        visible: true,
+                        closeModal: true
+                    },
+                    confirm: {
+                        text: "Evet",
+                        value: true,
+                        visible: true,
+                        className: "btn-danger",
+                        closeModal: true
+                    }
+                },
+                dangerMode: true,
+            }).then((willSubmit) => {
+                if (willSubmit) {
+                    window.location.href = link.attr('href');
+                }
+            });
+        });
+    });
+</script>

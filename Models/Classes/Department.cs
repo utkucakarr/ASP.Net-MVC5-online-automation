@@ -13,6 +13,8 @@ namespace MvcOnlineTricariOtomasyon.Models.Classes
         [Display(Name = "Departman Id")]
 
         public int DepartmentId { get; set; }
+
+        [Required(ErrorMessage = "Bu alanı boş geçemezsiniz!")]
         [Display(Name = "Departman")]
         [Column(TypeName = "Varchar")]
         [StringLength(30)]
